@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>saltstack on 奔跑的丸子</title>
+    <link>https://wanzi.im/tags/saltstack/</link>
+    <description>Recent content in saltstack on 奔跑的丸子</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 15 Feb 2018 16:22:42 +0800</lastBuildDate>
+    
+	<atom:link href="https://wanzi.im/tags/saltstack/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>saltstack之saltapi</title>
+      <link>https://wanzi.im/posts/2018/02/devops-saltstack-saltapi/</link>
+      <pubDate>Thu, 15 Feb 2018 16:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2018/02/devops-saltstack-saltapi/</guid>
+      <description>安装 yum -y install salt-api
+配置： cat /etc/salt/master.d/api.conf #配置证书和端口
+1 2 3 4 5  rest_cherrypy: port: 8888 debug: True ssl_crt: /etc/pki/tls/certs/localhost.crt ssl_key: /etc/pki/tls/private/localhost_nopass.key   cat /etc/salt/master.d/eauth.conf #设置权限
+1 2 3 4 5 6  external_auth: pam: saltapi: - .* - &amp;#39;@wheel&amp;#39; - &amp;#39;@runner&amp;#39;   添加账号 1 2  useradd -M -s /sbin/nologin saltapi echo &amp;#34;saltapi_xxxxxx&amp;#34; | passwd saltapi --stdin   启动服务： 1 2  systemctl enable salt-api systemctl start salt-api   测试： curl测试并获取token信息：</description>
+    </item>
+    
+    <item>
+      <title>saltstack之salt命令大全</title>
+      <link>https://wanzi.im/posts/2018/02/devops-saltstack-commands/</link>
+      <pubDate>Sat, 10 Feb 2018 16:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2018/02/devops-saltstack-commands/</guid>
+      <description>常用命令 1 2 3 4 5 6 7 8 9  salt -N &amp;#39;ceph&amp;#39; test.ping #测试连通性 salt -E &amp;#39;^server10*&amp;#39; test.ping #正则匹配连通性 salt -S 192.168.150.101 test.ping #根据agent ip地址匹配执行 salt -S 192.168.150.0/24 test.ping #根据agent ip地址匹配执行 salt -N &amp;#39;ceph&amp;#39; cmd.run &amp;#39;df -Th&amp;#39; #按组查看磁盘使用 salt -N &amp;#39;ceph&amp;#39; cmd.exec_code python &amp;#39;import os; print os.system(&amp;#34;df -Th&amp;#34;)&amp;#39; #python代码执行 salt -N &amp;#39;ceph&amp;#39; cmd.exec_code perl &amp;#39;print scalar localtime&amp;#39; #perl代码执行 salt -G &amp;#39;osrelease:6.3&amp;#39; cmd.run &amp;#39;python -V&amp;#39; #根据grans信息过滤后执行 salt &amp;#39;*&amp;#39; smbios.</description>
+    </item>
+    
+  </channel>
+</rss>

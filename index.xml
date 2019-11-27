@@ -1,0 +1,68 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>奔跑的丸子 on 奔跑的丸子</title>
+        <link>https://wanzi.im/</link>
+        <description>Recent content in 奔跑的丸子 on 奔跑的丸子</description>
+        <generator>Hugo -- gohugo.io</generator>
+        
+            <language>zh</language>
+        
+        
+        
+            <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+        
+        
+            <lastBuildDate>Thu, 14 Nov 2019 17:22:42 +0800</lastBuildDate>
+        
+        <atom:link href="https://wanzi.im/" rel="self" type="application/rss+xml" />
+        
+            <item>
+                <title>Posts</title>
+                <link>https://wanzi.im/posts/</link>
+                <pubDate>Thu, 14 Nov 2019 17:22:42 +0800</pubDate>
+                
+                <guid>https://wanzi.im/posts/</guid>
+                <description></description>
+            </item>
+        
+            <item>
+                <title>关于</title>
+                <link>https://wanzi.im/about/</link>
+                <pubDate>Fri, 02 Aug 2019 11:04:49 +0800</pubDate>
+                
+                <guid>https://wanzi.im/about/</guid>
+                <description>
+
+&lt;p&gt;本博客基于Hugo搭建,感谢&lt;a href=&#34;https://github.com/liuzc/LeaveIt/&#34;&gt;LeaveIt Theme&lt;/a&gt;提供这么好的模版.&lt;/p&gt;
+
+&lt;h4 id=&#34;my-focus&#34;&gt;My Focus&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;:(fab fa-google): Golang&lt;/li&gt;
+&lt;li&gt;:(fab fa-linux): Linux&lt;/li&gt;
+&lt;li&gt;:(fab fa-python): Python&lt;/li&gt;
+&lt;li&gt;Docker/Harbor&lt;/li&gt;
+&lt;li&gt;Kubernetes/CoreDNS/Helm/Operator/Consul&lt;/li&gt;
+&lt;li&gt;Rancher&lt;/li&gt;
+&lt;li&gt;Mysql/Redis&lt;/li&gt;
+&lt;li&gt;Saltstack/Ansible&lt;/li&gt;
+&lt;li&gt;Jenkins/Gitlab/Drone&lt;/li&gt;
+&lt;li&gt;Grafana/Prometheus/Open-falcon/InfluxDB&lt;/li&gt;
+&lt;li&gt;Elasticsearch/FileBeat/Fluentd&lt;/li&gt;
+&lt;li&gt;Etcd&lt;/li&gt;
+&lt;li&gt;Kafka/Pulsar&lt;/li&gt;
+&lt;li&gt;Ceph/HDFS/Rook&lt;/li&gt;
+&lt;li&gt;Istio&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;my-projects&#34;&gt;My Projects&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iwz2099/iwz2099.github.io&#34;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+            </item>
+        
+    </channel>
+</rss>

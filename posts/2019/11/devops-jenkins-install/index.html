@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>基于Docker-compose搭建jenkins | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="jenkins搭建">
+<link rel="prev" href="https://wanzi.im/posts/2019/11/other-hugo-github-blog/" />
+<link rel="next" href="https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/" />
+<link rel="canonical" href="https://wanzi.im/posts/2019/11/devops-jenkins-install/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基于Docker-compose搭建jenkins"/>
+<meta name="twitter:description" content="jenkins搭建"/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "基于Docker-compose搭建jenkins",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2019\/11\/devops-jenkins-install\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "jenkins, jenkins",
+    
+    "wordcount":  66 ,
+    "url": "https:\/\/wanzi.im\/posts\/2019\/11\/devops-jenkins-install\/",
+    
+        "datePublished": "2019-11-11T16:22:42\x2b08:00",
+    
+    
+        "dateModified": "2019-11-11T16:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "jenkins搭建"
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">基于Docker-compose搭建jenkins</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/devops/">devops</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-11-11>2019-11-11</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 66 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#docker-compose配置">docker-compose配置</a></li>
+<li><a href="#启动服务">启动服务</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        <nav id="TableOfContentsMobile">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#docker-compose配置">docker-compose配置</a></li>
+<li><a href="#启动服务">启动服务</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+<a class="post-dummy-target" id="docker-compose配置"></a><h4>docker-compose配置</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">version: &#39;2&#39;
+ 
+services:
+  jenkins:
+    image: jenkins/jenkins:latest
+    restart: always
+    environment:
+      JAVA_OPTS: &#34;-Dorg.apache.commons.jelly.tags.fmt.timeZone=Asia/Shanghai -Djava.awt.headless=true -Dmail.smtp.starttls.enable=true&#34;
+    ports:
+      - &#34;80:8080&#34;
+      - &#34;50000:50000&#34;
+    volumes:
+      - &#39;/ssd/jenkins:/var/jenkins_home&#39;
+      - &#39;/var/run/docker.sock:/var/run/docker.sock&#39;
+      - &#39;/etc/localtime:/etc/localtime:ro&#39;
+    dns: 223.5.5.5
+    networks:
+      - extnetwork
+networks:
+   extnetwork:
+      ipam:
+         config:
+         - subnet: 172.255.0.0/16</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="启动服务"></a><h4>启动服务</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">docker-compose  up -d </pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2019-11-11 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2019/11/devops-jenkins-install/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fdevops-jenkins-install%2f&amp;text=%e5%9f%ba%e4%ba%8eDocker-compose%e6%90%ad%e5%bb%bajenkins&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fdevops-jenkins-install%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fdevops-jenkins-install%2f&amp;title=%e5%9f%ba%e4%ba%8eDocker-compose%e6%90%ad%e5%bb%bajenkins" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fdevops-jenkins-install%2f&amp;title=%e5%9f%ba%e4%ba%8eDocker-compose%e6%90%ad%e5%bb%bajenkins" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fdevops-jenkins-install%2f&amp;appkey=&amp;title=%e5%9f%ba%e4%ba%8eDocker-compose%e6%90%ad%e5%bb%bajenkins" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/jenkins/"><i class="fas fa-tag fa-fw"></i>jenkins</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/jenkins/"><i class="fas fa-tag fa-fw"></i>jenkins</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2019/11/other-hugo-github-blog/" class="prev" rel="prev" title="Hugo&#43;Github搭建个人博客"><i class="fas fa-angle-left fa-fw"></i>Hugo&#43;Github搭建个人博客</a>
+        
+        
+            <a href="https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/" class="next" rel="next" title="基于K8S部署gitlab-runner">基于K8S部署gitlab-runner<i class="fas fa-angle-right fa-fw"></i></a>
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>

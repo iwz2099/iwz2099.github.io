@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>helm on 奔跑的丸子</title>
+    <link>https://wanzi.im/tags/helm/</link>
+    <description>Recent content in helm on 奔跑的丸子</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Thu, 14 Nov 2019 17:22:42 +0800</lastBuildDate>
+    
+	<atom:link href="https://wanzi.im/tags/helm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>基于K8S部署gitlab-runner</title>
+      <link>https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/</link>
+      <pubDate>Thu, 14 Nov 2019 17:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/</guid>
+      <description>部署gitlab-runner 这里基于helm部署，参考：https://gitlab.com/gitlab-org/charts/gitlab-runner.git
+1  helm install --namespace gitlab-managed-apps --name k8s-gitlab-runner -f values.yaml    注意：values.yaml文件需要设置privileged: true
+构建基础镜像(docker in docker) Dockerfile文件内容：
+1 2 3 4 5 6 7  FROM docker:19.03.1-dind WORKDIR /opt RUN echo &amp;#34;nameserver 114.114.114.114&amp;#34; &amp;gt;&amp;gt; /etc/resolv.conf RUN sed -i &amp;#39;s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g&amp;#39; /etc/apk/repositories RUN apk update RUN apk upgrade RUN apk add g++ gcc make docker docker-compose git   构建镜像并推送到harbor
+1 2  docker build -t registry.test.cn/devops/docker-tool:19.03.1 .</description>
+    </item>
+    
+  </channel>
+</rss>

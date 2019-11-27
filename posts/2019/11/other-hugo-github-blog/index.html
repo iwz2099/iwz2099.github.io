@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Hugo&#43;Github搭建个人博客 | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="hugo&#43;github搭建个人博客">
+<link rel="prev" href="https://wanzi.im/posts/2018/07/git-commands-base/" />
+<link rel="next" href="https://wanzi.im/posts/2019/11/devops-jenkins-install/" />
+<link rel="canonical" href="https://wanzi.im/posts/2019/11/other-hugo-github-blog/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hugo&#43;Github搭建个人博客"/>
+<meta name="twitter:description" content="hugo&#43;github搭建个人博客"/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Hugo\x2bGithub搭建个人博客",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2019\/11\/other-hugo-github-blog\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "hugo, github, 博客",
+    
+    "wordcount":  184 ,
+    "url": "https:\/\/wanzi.im\/posts\/2019\/11\/other-hugo-github-blog\/",
+    
+        "datePublished": "2019-11-10T16:22:42\x2b08:00",
+    
+    
+        "dateModified": "2019-11-10T16:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "hugo\x2bgithub搭建个人博客"
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">Hugo&#43;Github搭建个人博客</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/other/">other</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-11-10>2019-11-10</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 184 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#安装hugo">安装hugo</a></li>
+<li><a href="#主题选择">主题选择</a></li>
+<li><a href="#编写文章">编写文章</a></li>
+<li><a href="#推送到github">推送到github</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        <nav id="TableOfContentsMobile">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#安装hugo">安装hugo</a></li>
+<li><a href="#主题选择">主题选择</a></li>
+<li><a href="#编写文章">编写文章</a></li>
+<li><a href="#推送到github">推送到github</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+<a class="post-dummy-target" id="介绍"></a><h4>介绍</h4>
+
+<p>之前博客一直使用hexo搭建,随着用golang越来越多，一直想把博客也迁移到hugo,hugo就不用多说了go语言编写的静态网站生成器,简单、易用、高效、易扩展、快速部署.</p>
+
+<p>我网站目录结构如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">├── archetypes #存放default.md，头文件格式
+│   └── default.md  
+├── config.toml #整个网站项目全局配置
+├── content #content目录存放博客文章（markdown文件）
+│   ├── about.md
+│   └── posts
+├── data #存放数据或配置,可以是json|toml|yaml
+├── layouts #存放的是网站的模板文件
+├── public #hugo编译后生成的静态文件
+│   ├── 404.html
+│   ├── CNAME
+│   ├── about
+│   ├── categories
+│   ├── css
+│   ├── images
+│   ├── index.html
+│   ├── index.xml
+│   ├── js
+│   ├── page
+│   ├── posts
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   └── tags
+├── resources
+│   └── _gen
+├── static #存放图片,css,jss静态资源
+│   └── images
+└── themes #存放网站主题
+    └── LoveIt</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="安装hugo"></a><h4>安装hugo</h4>
+
+<p>这里以mac环境为例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">brew install hugo
+hugo new site wanzi</pre></td></tr></table>
+</div>
+</div>
+<p>更多安装参考<a href="https://gohugo.io/getting-started/installing/">官方安装文档</a></p>
+
+<a class="post-dummy-target" id="主题选择"></a><h4>主题选择</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd themes
+git clone https://github.com/dillonzq/LoveIt.git
+cd ..
+cp themes/LoveIt/exampleSite/config.toml ./</pre></td></tr></table>
+</div>
+</div>
+<p>修改config.toml信息为你自己博客信息</p>
+
+<a class="post-dummy-target" id="编写文章"></a><h4>编写文章</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">hugo new content/posts/git-commands-base.md</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="推送到github"></a><h4>推送到github</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd wanzi/public
+git init 
+git remote add origin https://github.com/iwz2099/iwz2099.github.io.
+echo &#34;wanzi.im&#34; &gt; CNAME
+git  add -A
+git commit -m &#34;initialization&#34;
+git push -u origin master</pre></td></tr></table>
+</div>
+</div>
+<p>如果使用个人域名,只需要在github仓库下创建CNAME文件写入自己的域名即可，这样访问wanzi.im就可以访问自己博客了。</p>
+
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2019-11-10 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2019/11/other-hugo-github-blog/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fother-hugo-github-blog%2f&amp;text=Hugo%2bGithub%e6%90%ad%e5%bb%ba%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fother-hugo-github-blog%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fother-hugo-github-blog%2f&amp;title=Hugo%2bGithub%e6%90%ad%e5%bb%ba%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fother-hugo-github-blog%2f&amp;title=Hugo%2bGithub%e6%90%ad%e5%bb%ba%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f11%2fother-hugo-github-blog%2f&amp;appkey=&amp;title=Hugo%2bGithub%e6%90%ad%e5%bb%ba%e4%b8%aa%e4%ba%ba%e5%8d%9a%e5%ae%a2" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/hugo/"><i class="fas fa-tag fa-fw"></i>hugo</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/github/"><i class="fas fa-tag fa-fw"></i>github</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/%E5%8D%9A%E5%AE%A2/"><i class="fas fa-tag fa-fw"></i>博客</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2018/07/git-commands-base/" class="prev" rel="prev" title="Git基础命令"><i class="fas fa-angle-left fa-fw"></i>Git基础命令</a>
+        
+        
+            <a href="https://wanzi.im/posts/2019/11/devops-jenkins-install/" class="next" rel="next" title="基于Docker-compose搭建jenkins">基于Docker-compose搭建jenkins<i class="fas fa-angle-right fa-fw"></i></a>
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>

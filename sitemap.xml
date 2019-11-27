@@ -1,0 +1,577 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+        <url>
+            <loc>https://wanzi.im/categories/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/gitlab/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/gitlab-runner/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/helm/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/k8s/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/kubernetes/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/categories/linux/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/</loc>
+            
+                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/categories/devops/</loc>
+            
+                <lastmod>2019-11-11T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/jenkins/</loc>
+            
+                <lastmod>2019-11-11T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2019/11/devops-jenkins-install/</loc>
+            
+                <lastmod>2019-11-11T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/github/</loc>
+            
+                <lastmod>2019-11-10T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/hugo/</loc>
+            
+                <lastmod>2019-11-10T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2019/11/other-hugo-github-blog/</loc>
+            
+                <lastmod>2019-11-10T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/categories/other/</loc>
+            
+                <lastmod>2019-11-10T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/%E5%8D%9A%E5%AE%A2/</loc>
+            
+                <lastmod>2019-11-10T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/about/</loc>
+            
+                <lastmod>2019-08-02T11:04:49+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/git/</loc>
+            
+                <lastmod>2018-07-28T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/07/git-commands-base/</loc>
+            
+                <lastmod>2018-07-28T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/%E5%91%BD%E4%BB%A4/</loc>
+            
+                <lastmod>2018-07-28T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/categories/docker/</loc>
+            
+                <lastmod>2018-07-02T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/docker/</loc>
+            
+                <lastmod>2018-07-02T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/dockerfile/</loc>
+            
+                <lastmod>2018-07-02T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/</loc>
+            
+                <lastmod>2018-07-02T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/06/docker-dockerfile-details/</loc>
+            
+                <lastmod>2018-06-21T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/06/docker-commands-base/</loc>
+            
+                <lastmod>2018-06-20T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/ca/</loc>
+            
+                <lastmod>2018-05-25T13:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/05/openssl-issue-private-certificate/</loc>
+            
+                <lastmod>2018-05-25T13:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/openssl/</loc>
+            
+                <lastmod>2018-05-25T13:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/%E8%AF%81%E4%B9%A6/</loc>
+            
+                <lastmod>2018-05-25T13:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/saltapi/</loc>
+            
+                <lastmod>2018-02-15T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/saltstack/</loc>
+            
+                <lastmod>2018-02-15T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/02/devops-saltstack-saltapi/</loc>
+            
+                <lastmod>2018-02-15T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/02/devops-saltstack-commands/</loc>
+            
+                <lastmod>2018-02-10T16:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/coding/</loc>
+            
+                <lastmod>2018-01-20T10:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/python/</loc>
+            
+                <lastmod>2018-01-20T10:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/categories/python/</loc>
+            
+                <lastmod>2018-01-20T10:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2018/01/python-coding-standards/</loc>
+            
+                <lastmod>2018-01-20T10:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+</urlset>

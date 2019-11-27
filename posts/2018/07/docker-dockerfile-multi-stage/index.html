@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Dockerfile多阶段构建 | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="docker多阶段构建">
+<link rel="prev" href="https://wanzi.im/posts/2018/06/docker-dockerfile-details/" />
+<link rel="next" href="https://wanzi.im/posts/2018/07/git-commands-base/" />
+<link rel="canonical" href="https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dockerfile多阶段构建"/>
+<meta name="twitter:description" content="docker多阶段构建"/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Dockerfile多阶段构建",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2018\/07\/docker-dockerfile-multi-stage\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "docker, dockerfile",
+    
+    "wordcount":  90 ,
+    "url": "https:\/\/wanzi.im\/posts\/2018\/07\/docker-dockerfile-multi-stage\/",
+    
+        "datePublished": "2018-07-02T16:22:42\x2b08:00",
+    
+    
+        "dateModified": "2018-07-02T16:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "docker多阶段构建"
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">Dockerfile多阶段构建</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/docker/">docker</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2018-07-02>2018-07-02</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 90 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <p>Docker多阶段构建理解:</p>
+
+<ul>
+<li>构建镜像需要有一个基础镜像,后续操作就会基于该基础镜像构建</li>
+<li>docker镜像文件里有层级概念,每执行一次RUN指令,镜像就会多一层,所以通过减少层级来减少镜像大小</li>
+<li>多个from的时候,只有最后一个from的镜像才是镜像的根镜像</li>
+</ul>
+
+<p>自己项目部署中多阶段构建示例:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">FROM golang:1.12.7 as build
+MAINTAINER wanzi &lt;iwz2099@163.com&gt;
+ 
+# 编译配置相关
+ARG NAME=gaia
+ARG FLAGS=-tags=jsoniter
+ARG GOOS=linux
+ARG GOARCH=amd64
+ARG PORT_TO_EXPOSE=10020
+ 
+ENV GOPROXY https://mirrors.aliyun.com/goproxy/
+ENV GO111MODULE on
+ 
+WORKDIR /opt/gaia
+COPY . .
+RUN GOOS=$GOOS GOARCH=$GOARCH go build -mod vendor -ldflags=&#34;-s -w&#34; -o $NAME $FLAGS
+ 
+FROM alpine
+WORKDIR /opt/gaia
+COPY --from=build /opt/gaia/gaia .
+RUN mkdir -p /opt/gaia/conf
+VOLUME [&#34;/opt/gaia/conf&#34;]
+ 
+CMD [&#34;./gaia&#34;]
+EXPOSE $PORT_TO_EXPOSE</pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2018-07-02 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fdocker-dockerfile-multi-stage%2f&amp;text=Dockerfile%e5%a4%9a%e9%98%b6%e6%ae%b5%e6%9e%84%e5%bb%ba&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fdocker-dockerfile-multi-stage%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fdocker-dockerfile-multi-stage%2f&amp;title=Dockerfile%e5%a4%9a%e9%98%b6%e6%ae%b5%e6%9e%84%e5%bb%ba" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fdocker-dockerfile-multi-stage%2f&amp;title=Dockerfile%e5%a4%9a%e9%98%b6%e6%ae%b5%e6%9e%84%e5%bb%ba" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fdocker-dockerfile-multi-stage%2f&amp;appkey=&amp;title=Dockerfile%e5%a4%9a%e9%98%b6%e6%ae%b5%e6%9e%84%e5%bb%ba" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/docker/"><i class="fas fa-tag fa-fw"></i>docker</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/dockerfile/"><i class="fas fa-tag fa-fw"></i>dockerfile</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2018/06/docker-dockerfile-details/" class="prev" rel="prev" title="Dockerfile语法详情"><i class="fas fa-angle-left fa-fw"></i>Dockerfile语法详情</a>
+        
+        
+            <a href="https://wanzi.im/posts/2018/07/git-commands-base/" class="next" rel="next" title="Git基础命令">Git基础命令<i class="fas fa-angle-right fa-fw"></i></a>
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>saltstack之salt命令大全 | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="saltstack常用命令">
+<link rel="prev" href="https://wanzi.im/posts/2018/01/python-coding-standards/" />
+<link rel="next" href="https://wanzi.im/posts/2018/02/devops-saltstack-saltapi/" />
+<link rel="canonical" href="https://wanzi.im/posts/2018/02/devops-saltstack-commands/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="saltstack之salt命令大全"/>
+<meta name="twitter:description" content="saltstack常用命令"/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "saltstack之salt命令大全",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2018\/02\/devops-saltstack-commands\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "saltstack",
+    
+    "wordcount":  414 ,
+    "url": "https:\/\/wanzi.im\/posts\/2018\/02\/devops-saltstack-commands\/",
+    
+        "datePublished": "2018-02-10T16:22:42\x2b08:00",
+    
+    
+        "dateModified": "2018-02-10T16:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "saltstack常用命令"
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">saltstack之salt命令大全</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/devops/">devops</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2018-02-10>2018-02-10</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 414 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#常用命令">常用命令</a></li>
+<li><a href="#远程执行脚本">远程执行脚本：</a></li>
+<li><a href="#远程拷贝文件">远程拷贝文件：</a></li>
+<li><a href="#获取磁盘信息">获取磁盘信息</a></li>
+<li><a href="#文件操作">文件操作</a></li>
+<li><a href="#用户信息操作">用户信息操作</a></li>
+<li><a href="#时区-重启-任务计划">时区、重启、任务计划</a></li>
+<li><a href="#文件解压缩">文件解压缩：</a></li>
+<li><a href="#网络">网络</a></li>
+<li><a href="#获取对象帮助信息">获取对象帮助信息：</a></li>
+<li><a href="#jobs管理">Jobs管理：</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        <nav id="TableOfContentsMobile">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#常用命令">常用命令</a></li>
+<li><a href="#远程执行脚本">远程执行脚本：</a></li>
+<li><a href="#远程拷贝文件">远程拷贝文件：</a></li>
+<li><a href="#获取磁盘信息">获取磁盘信息</a></li>
+<li><a href="#文件操作">文件操作</a></li>
+<li><a href="#用户信息操作">用户信息操作</a></li>
+<li><a href="#时区-重启-任务计划">时区、重启、任务计划</a></li>
+<li><a href="#文件解压缩">文件解压缩：</a></li>
+<li><a href="#网络">网络</a></li>
+<li><a href="#获取对象帮助信息">获取对象帮助信息：</a></li>
+<li><a href="#jobs管理">Jobs管理：</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+<a class="post-dummy-target" id="常用命令"></a><h4>常用命令</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; test.ping     #测试连通性
+salt -E &#39;^server10*&#39; test.ping           #正则匹配连通性
+salt -S 192.168.150.101 test.ping      #根据agent ip地址匹配执行
+salt -S 192.168.150.0/24 test.ping     #根据agent ip地址匹配执行
+salt -N &#39;ceph&#39; cmd.run &#39;df -Th&#39; #按组查看磁盘使用
+salt -N &#39;ceph&#39; cmd.exec_code python &#39;import os; print os.system(&#34;df -Th&#34;)&#39; #python代码执行
+salt -N &#39;ceph&#39; cmd.exec_code perl &#39;print scalar localtime&#39; #perl代码执行
+salt -G &#39;osrelease:6.3&#39; cmd.run &#39;python -V&#39; #根据grans信息过滤后执行
+salt &#39;*&#39;  smbios.get system-serial-number #获取服务器硬件序列号</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="远程执行脚本"></a><h4>远程执行脚本：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; salt://scripts/runme.sh  #远程执行脚本</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="远程拷贝文件"></a><h4>远程拷贝文件：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; cp.get_file salt://files/opencdn/a.txt /tmp/a.txt #agent端从master拉取文件到/tmp下
+salt -N &#39;ceph&#39; cp.get_file salt://files/opencdn/dir1/  /tmp   #agent端从master拉取目录到/tmp下
+salt -N &#39;ceph&#39; cp.get_url http://www.baidu.com  /tmp/index.html #下载url
+salt -N &#39;ceph&#39; cp.push /etc/fstab   #提取指定节点文件到master,默认在/var/cache/salt/master/minions/minion-id/files目录下
+salt -N &#39;ceph&#39; cp.push_dir /etc/modprobe.d/ glob=&#39;*.conf&#39; #提取节点指定目录的指定配置文件
+salt-cp &#39;*&#39; fstab /etc/fstab   #拷贝当前目录下fstab文件到节点/etc/fstab
+salt-cp -E &#39;gpu0[1-2][1-5]&#39; fstab /etc/fstab    #正则匹配拷贝文件
+salt-cp -G &#39;os:CentOS*&#39; fstab /etc/fstab   #grains匹配拷贝文件    </pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="获取磁盘信息"></a><h4>获取磁盘信息</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; disk.percent /data01  #获取磁盘使用率
+salt -N &#39;ceph&#39; disk.nodeusage /data01  #获取磁盘inode使用
+salt -N &#39;ceph&#39; xfs.info /data01 #获取xfs分区信息</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="文件操作"></a><h4>文件操作</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; file.chown /etc/passwd root root   #修改文件权限
+salt -N &#39;ceph&#39; file.copy  /etc/passwd  /tmp/passwd #拷贝文件
+salt -N &#39;ceph&#39; file.directory_exists /etc/passwd  #判断文件是否存在</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="用户信息操作"></a><h4>用户信息操作</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; user.list_users  #列出系统所有系统账号
+salt -N &#39;ceph&#39; user.info  lianghaiqiang  #列出用户信息
+salt -N &#39;ceph&#39; user.delete lianghaiqiang remove=True force=True #强制删除用户</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="时区-重启-任务计划"></a><h4>时区、重启、任务计划</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; timezone.get_zone  #获取时区
+salt -N &#39;ceph&#39; timezone.set_zone #设置时区
+salt -N &#39;ceph&#39; system.reboot #重启系统
+salt -N &#39;ceph&#39; cron.list_tab root  #列出root计划任务
+salt -N &#39;ceph&#39; cron.raw_cron root  #列出root计划任务，文本格式</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="文件解压缩"></a><h4>文件解压缩：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; archive.cmd_unzip template=jinja /tmp/zipfile.zip /tmp/{{grains.id}}/ excludes=file_1,file_2
+salt -N &#39;ceph&#39; archive.cmd_unzip /tmp/zipfile.zip /home/strongbad/ excludes=file_1,file_2
+salt -N &#39;ceph&#39; archive.cmd_zip template=jinja /tmp/zipfile.zip /tmp/sourcefile1,/tmp/{{grains.id}}.txt</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="网络"></a><h4>网络</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; network.dig www.baidu.com  #dig解析
+salt -N &#39;ceph&#39; network.get_hostname  #获取主机名
+salt -N &#39;ceph&#39; network.hw_addr eth0  #获取MAC地址
+salt -N &#39;ceph&#39; network.ip_addrs  #获取IP地址
+salt -N &#39;ceph&#39; network.ping www.baidu.com  timeout=3 #ping信息
+salt -N &#39;ceph&#39; pkg.install  zlib   #安装软件包</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="获取对象帮助信息"></a><h4>获取对象帮助信息：</h4>
+
+<p>如：grains/disk/pillar/pip/pkg</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt -N &#39;ceph&#39; sys.doc  sys  #获取sys系统帮助信息
+salt &#39;gpu054&#39; sys.list_functions grains  #查询grains属性用法
+salt &#39;gpu054&#39; sys.doc grains    #查询grains用法帮助
+salt &#39;gpu054&#39; sys.doc disk    #查询disk用法帮助
+
+salt &#39;gpu054&#39; sys.list_functions  pillar #查询pillar用法
+salt &#39;gpu054&#39; sys.doc  pillar #查询pillar用法帮助
+salt &#39;gpu054&#39; pillar.item  #查询pillar支持数据源
+
+salt &#39;gpu054&#39; sys.list_modules #查询minion支持模块
+salt &#39;gpu054&#39; sys.list_functions  pip #查询pip模块支持方法
+salt &#39;gpu054&#39; sys.doc  pip #查看pip模块帮助
+
+salt &#39;gpu054&#39; sys.list_state_modules #查询所有states列表
+salt &#39;gpu054&#39; sys.list_state_functions pkg #查询pkg方法
+salt &#39;gpu054&#39; sys.state_doc pkg #查询pkg帮助</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="jobs管理"></a><h4>Jobs管理：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">salt-run jobs.active   #查看所有minion当前正在运行的jobs(在所有minions上运⾏saltutil.running)
+salt-run jobs.lookup_jid &lt;jid&gt;        #从master jobs cache中查询指定jid的运行结果
+salt-run jobs.list_jobs    #列出当前master jobs cache中的所有job
+salt &#39;xxxx&#39; saltutil.kill_job  &lt;jid&gt;  #master上kill掉某个job</pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2018-02-10 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2018/02/devops-saltstack-commands/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f02%2fdevops-saltstack-commands%2f&amp;text=saltstack%e4%b9%8bsalt%e5%91%bd%e4%bb%a4%e5%a4%a7%e5%85%a8&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f02%2fdevops-saltstack-commands%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f02%2fdevops-saltstack-commands%2f&amp;title=saltstack%e4%b9%8bsalt%e5%91%bd%e4%bb%a4%e5%a4%a7%e5%85%a8" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f02%2fdevops-saltstack-commands%2f&amp;title=saltstack%e4%b9%8bsalt%e5%91%bd%e4%bb%a4%e5%a4%a7%e5%85%a8" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f02%2fdevops-saltstack-commands%2f&amp;appkey=&amp;title=saltstack%e4%b9%8bsalt%e5%91%bd%e4%bb%a4%e5%a4%a7%e5%85%a8" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/saltstack/"><i class="fas fa-tag fa-fw"></i>saltstack</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2018/01/python-coding-standards/" class="prev" rel="prev" title="python编码规范"><i class="fas fa-angle-left fa-fw"></i>python编码规范</a>
+        
+        
+            <a href="https://wanzi.im/posts/2018/02/devops-saltstack-saltapi/" class="next" rel="next" title="saltstack之saltapi">saltstack之saltapi<i class="fas fa-angle-right fa-fw"></i></a>
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>

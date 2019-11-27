@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Git基础命令 | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="git常用命令总结.">
+<link rel="prev" href="https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/" />
+<link rel="next" href="https://wanzi.im/posts/2019/11/other-hugo-github-blog/" />
+<link rel="canonical" href="https://wanzi.im/posts/2018/07/git-commands-base/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git基础命令"/>
+<meta name="twitter:description" content="git常用命令总结."/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Git基础命令",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2018\/07\/git-commands-base\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "git, 命令",
+    
+    "wordcount":  445 ,
+    "url": "https:\/\/wanzi.im\/posts\/2018\/07\/git-commands-base\/",
+    
+        "datePublished": "2018-07-28T17:22:42\x2b08:00",
+    
+    
+        "dateModified": "2018-07-28T17:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "git常用命令总结."
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">Git基础命令</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/linux/">Linux</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2018-07-28>2018-07-28</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 445 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#git全局设置">Git全局设置：</a></li>
+<li><a href="#git提交代码">Git提交代码</a></li>
+<li><a href="#git查询和清理">Git查询和清理</a></li>
+<li><a href="#git分支操作">Git分支操作：</a></li>
+<li><a href="#git合并操作">Git合并操作</a></li>
+<li><a href="#git-tag操作">Git tag操作</a></li>
+<li><a href="#git多人协作">Git多人协作：</a></li>
+<li><a href="#git取消暂存区文件和取消文件修改">Git取消暂存区文件和取消文件修改</a></li>
+<li><a href="#git回滚到上次提交版本">Git回滚到上次提交版本</a></li>
+<li><a href="#git回滚master代码到某个tag版本">Git回滚master代码到某个tag版本</a></li>
+<li><a href="#git其他操作">Git其他操作</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        <nav id="TableOfContentsMobile">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#git全局设置">Git全局设置：</a></li>
+<li><a href="#git提交代码">Git提交代码</a></li>
+<li><a href="#git查询和清理">Git查询和清理</a></li>
+<li><a href="#git分支操作">Git分支操作：</a></li>
+<li><a href="#git合并操作">Git合并操作</a></li>
+<li><a href="#git-tag操作">Git tag操作</a></li>
+<li><a href="#git多人协作">Git多人协作：</a></li>
+<li><a href="#git取消暂存区文件和取消文件修改">Git取消暂存区文件和取消文件修改</a></li>
+<li><a href="#git回滚到上次提交版本">Git回滚到上次提交版本</a></li>
+<li><a href="#git回滚master代码到某个tag版本">Git回滚master代码到某个tag版本</a></li>
+<li><a href="#git其他操作">Git其他操作</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <a class="post-dummy-target" id="git全局设置"></a><h4>Git全局设置：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git config --global user.name &#34;wanzi&#34;
+git config --global user.email &#34;iwz2099@163.com&#34;</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git提交代码"></a><h4>Git提交代码</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git clone git@github.com:iwz2099/test.git
+cd test
+touch README.md
+git add README.md
+git commit -m &#34;add README&#34;
+git push -u origin master
+#上面命令将本地的master分支推送到远程origin分值，同时-u指定当前仓库的默认远程分支名为origin，后面就可以不加任何参数使用git push了
+
+#包含本地分支都推送到origin主机
+git push -u origin --all  
+
+#如果本地是基于case_dev_wanzi分支开发,推送到远程case_dev分支
+git push origin case_dev_wanzi:case_dev</pre></td></tr></table>
+</div>
+</div>
+<!-- more -->
+
+<a class="post-dummy-target" id="git查询和清理"></a><h4>Git查询和清理</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git status   #查询当前分支状态信息
+git log      #查看当前分支commit信息
+git log -n3  #查询最近三次提交commit 
+git log -p  -2  #查询每次提交的内容差异，只显示最近2条提交记录，
+git log --stat  #查询每次提交的简历统计信息
+git log --pretty=oneline #将每次提交的信息一行显示,oneline可以是short,full,fuller
+git log --pretty=format:&#34;%h - %an, %ar : %s&#34;
+git log --pretty=format:&#34;%h %s&#34; --graph  #ASCII字符串来形象地展示你的分支、合并历史
+git reflog #显示所有分支所有操作信息(包括commit,reset和已经删除的commit)
+git reflog #显示最近10条日志
+git grep -n   wanzi  #搜索提交历史和工作目录
+git grep --count   wanzi  #搜索显示次数
+git clean  #移除没有忽略的未跟踪文件
+git clean -d  #清理工作目录
+git clean -d -n  #-n测试清理工作目录，实际未清理</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git分支操作"></a><h4>Git分支操作：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git branch #查看当前分支
+git branch -v #查看每个分支的最后一次提交
+#基于远程master分支创建本地dev分支
+git checkout -b dev  origin/master 
+
+git branch --merged #查看哪些分支合并到当前分支
+git branch --no-merged #查看哪些分支尚未合并到当前分支
+
+#新开发一个功能，-b创建分支，并切换到新创建的分支上
+git checkout -b dev-20180720-111111-wanzi
+相当于：
+git branch r-20180720-111111-wanzi
+git checkout r-20180720-111111-wanzi
+
+将开发后功能合并到Master主干
+git checkout master
+git merge  dev-20180720-111111-wanzi</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git合并操作"></a><h4>Git合并操作</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">#基于远程master新建分支issue54,基于该分支进行开发项目
+git remote add origin git@github.com:iwz2099/test.git
+git  checkout -b issue54  origin/master
+
+#功能开发完后向把开发后的功能合并到远程分支
+git  fetch origin    #拉去差异信息
+git  merge origin/master  #合并远程分支到当前项目
+git  push origin master  #推送代码到远程分支
+
+git  log --no-merges issue54..origin/master  #查看master哪些信息没有合并到issue54分支里。</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git-tag操作"></a><h4>Git tag操作</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git tag   #列出当前项目tag信息
+git tag -l &#39;wanzi-2018*&#39;   #-l还可以只列出自己的分支
+git tag  v1.8-20180720   #创建标签（一般临时用）
+git tag -a  v1.8-20180720  -m &#39;wanzi version 1.8&#39;   #-a创建tag，-m并添加说明，会存储tag信息
+git  show  v1.8-20180720  #查看标签信息，这个时候可以对比下git tag -a和git tag差别
+git push origin tag_name    #推送tag到远程仓库
+git push origin  --tags      #一次性推送很多tag到远程仓库
+git push origin :tag_name   #删除远程tag信息
+git checkout -b   dev-20180720-111111-wanzi    v1.2.0  #基于某个分支新建一个tag版本
+git branch -D  dev-20180720-123333-wanzi   #强制删除一个没有合并的分支</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git多人协作"></a><h4>Git多人协作：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">#A码农基于远程master新建分支feature1
+git checkout -b feature1 origin/master
+
+#B码农基于远程master新建分支feature11
+git checkout -b feature11 origin/master
+
+#A码农先开发完，并推送代码到远程服务的feature1分支,B码农后开发完，想把改过信息合并到feature1
+git fetch origin
+git merge origin/feature1
+git push -u origin feature11:feature1</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git取消暂存区文件和取消文件修改"></a><h4>Git取消暂存区文件和取消文件修改</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">#代码git add到缓存区，并未commit提交，回滚代码
+git reset HEAD .  或者
+git reset HEAD a.txt
+这个命令仅改变暂存区，并不改变工作区，这意味着在无任何其他操作的情况下，工作区中的实际文件同该命令运行之前无任何变化
+
+git checkout --  .    #取消路径所有修改，回到上一个commit版本
+git checkout -- a.txt #取消a.txt所有改动，回到上一个commit版本</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git回滚到上次提交版本"></a><h4>Git回滚到上次提交版本</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git log
+git reset --hard  &lt;commit_id&gt;  #回退一次提交的commit id
+git reset --hard HEAD^  #回退到上一版本 
+git reset --hard HEAD^^ #回退到倒数第二版
+git reset --hard HEAD~4 #回退到倒数第四版
+
+
+git push origin HEAD --force # 强制提交一次，之前错误的提交就从远程仓库删除(拥有项目管理权限的时候一定要慎重)</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="git回滚master代码到某个tag版本"></a><h4>Git回滚master代码到某个tag版本</h4>
+
+<ul>
+<li><p>基于release tag新建回滚临时分支，并将分支强制推送到远程master</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git checkout -b rollback_20180720  r-20180720-111225-wanzi</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>gitlab的项目setting里master项目管理员取消master保护</p></li>
+
+<li><p>强制推送rollback_20180720分支到远程master主干(这个过程会强制回退到r-20180720-111225-wanzi这个版本)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git push origin rollback_20180720:master -f</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<a class="post-dummy-target" id="git其他操作"></a><h4>Git其他操作</h4>
+
+<ul>
+<li><p>提交信息写错，还没提交,修改提交信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git commit --amend --only -m &#39;fix: 修复一个bug&#39;  #修改提交信息</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>提交用户名和邮箱写错了，还没提交,修改提交信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git commit --amend --author=&#34;wanzi &lt;iwz2099@163.com&gt;&#34;</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2018-07-28 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2018/07/git-commands-base/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fgit-commands-base%2f&amp;text=Git%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fgit-commands-base%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fgit-commands-base%2f&amp;title=Git%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fgit-commands-base%2f&amp;title=Git%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f07%2fgit-commands-base%2f&amp;appkey=&amp;title=Git%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/git/"><i class="fas fa-tag fa-fw"></i>git</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/%E5%91%BD%E4%BB%A4/"><i class="fas fa-tag fa-fw"></i>命令</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/" class="prev" rel="prev" title="Dockerfile多阶段构建"><i class="fas fa-angle-left fa-fw"></i>Dockerfile多阶段构建</a>
+        
+        
+            <a href="https://wanzi.im/posts/2019/11/other-hugo-github-blog/" class="next" rel="next" title="Hugo&#43;Github搭建个人博客">Hugo&#43;Github搭建个人博客<i class="fas fa-angle-right fa-fw"></i></a>
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>

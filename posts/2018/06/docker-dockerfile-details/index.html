@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Dockerfile语法详情 | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="dockerfile文件如何编写,dockerfile编写配置">
+<link rel="prev" href="https://wanzi.im/posts/2018/06/docker-commands-base/" />
+<link rel="next" href="https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/" />
+<link rel="canonical" href="https://wanzi.im/posts/2018/06/docker-dockerfile-details/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dockerfile语法详情"/>
+<meta name="twitter:description" content="dockerfile文件如何编写,dockerfile编写配置"/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Dockerfile语法详情",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2018\/06\/docker-dockerfile-details\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "docker, dockerfile",
+    
+    "wordcount":  219 ,
+    "url": "https:\/\/wanzi.im\/posts\/2018\/06\/docker-dockerfile-details\/",
+    
+        "datePublished": "2018-06-21T16:22:42\x2b08:00",
+    
+    
+        "dateModified": "2018-06-21T16:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "dockerfile文件如何编写,dockerfile编写配置"
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">Dockerfile语法详情</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/docker/">docker</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2018-06-21>2018-06-21</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 219 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 2 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#from">FROM</a></li>
+<li><a href="#maintainer">MAINTAINER</a></li>
+<li><a href="#env">ENV</a></li>
+<li><a href="#run">RUN</a></li>
+<li><a href="#copy">COPY:</a></li>
+<li><a href="#add">ADD</a></li>
+<li><a href="#volume">VOLUME</a></li>
+<li><a href="#user">USER</a></li>
+<li><a href="#cmd">CMD</a></li>
+<li><a href="#workdir">WORKDIR</a></li>
+<li><a href="#onbuild">ONBUILD</a></li>
+<li><a href="#expose">EXPOSE</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        <nav id="TableOfContentsMobile">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#from">FROM</a></li>
+<li><a href="#maintainer">MAINTAINER</a></li>
+<li><a href="#env">ENV</a></li>
+<li><a href="#run">RUN</a></li>
+<li><a href="#copy">COPY:</a></li>
+<li><a href="#add">ADD</a></li>
+<li><a href="#volume">VOLUME</a></li>
+<li><a href="#user">USER</a></li>
+<li><a href="#cmd">CMD</a></li>
+<li><a href="#workdir">WORKDIR</a></li>
+<li><a href="#onbuild">ONBUILD</a></li>
+<li><a href="#expose">EXPOSE</a></li>
+<li><a href="#注意事项">注意事项</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+<a class="post-dummy-target" id="from"></a><h4>FROM</h4>
+
+<p>指定构建镜像使用的基础镜像,FROM必须是Dockerfile中非注释行的第一个指令,如果本地没有指定的镜像，则会自动从Docker的公共库pull镜像下来。
+例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">FROM ubuntu:14.04  #继承ubuntu:14.04</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="maintainer"></a><h4>MAINTAINER</h4>
+
+<p>指定创建者信息</p>
+
+<p>MAINTAINER wanzi &ldquo;iwz2099@163.com&rdquo;</p>
+
+<a class="post-dummy-target" id="env"></a><h4>ENV</h4>
+
+<p>设置环境变量，会被后续 RUN 指令使用，并在容器运行时保持。
+ENV <key> <value>       # 只能设置一个变量
+ENV <key>=<value> &hellip;   # 允许一次设置多个变量
+例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ENV LANG en_US.UTF-8
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="run"></a><h4>RUN</h4>
+
+<p>RUN <command> 或 RUN [&ldquo;executable&rdquo;, &ldquo;param1&rdquo;, &ldquo;param2&rdquo;]。
+例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">RUN yum -y install bind-utils
+RUN [&#34;/bin/bash&#34;, &#34;-c&#34;, &#34;yum -y install bind-utils&#34;]</pre></td></tr></table>
+</div>
+</div>
+<p>前者将在shell终端中运行命令,即 /bin/sh -c yum -y install bind-utils；后者则使用exec执行。指定使用其它终端可以通过第二种方式实现。
+每条RUN指令将在当前镜像基础上执行指定命令，并提交为新的镜像，后续的RUN都在之前RUN提交后的镜像为基础，镜像是分层的，可以通过一个镜像的任何一个历史提交点来创建，类似源码的版本控制。当命令较长时可以使用 \ 来换行。</p>
+
+<a class="post-dummy-target" id="copy"></a><h4>COPY:</h4>
+
+<p>COPY <src> <dest>
+例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">COPY script/ /build/script/</pre></td></tr></table>
+</div>
+</div>
+<p>复制本地主机的<src>（为Dockerfile所在目录的相对路径）到容器中的 <dest>,当使用本地目录为源目录时，推荐使用 COPY。</p>
+
+<a class="post-dummy-target" id="add"></a><h4>ADD</h4>
+
+<p>ADD <src> <dest>
+例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ADD https://www.baidu.com/index.html   /var/www/html/
+ADD ubuntu-xenial-core-cloudimg-amd64-root.tar.gz /</pre></td></tr></table>
+</div>
+</div>
+<p>该命令将复制指定的 <src> 到容器中的 <dest>。 其中<src>可以是Dockerfile所在目录的一个相对路径；也可以是一个 URL(自动下载后复制到容器)；还可以是一个tar文件（自动解压为目录）。</p>
+
+<a class="post-dummy-target" id="volume"></a><h4>VOLUME</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">VOLUME [ &#34;/data&#34; ]
+VOLUME [ &#34;/var/lib/redis&#34;, &#34;/var/log/redis&#34; ]</pre></td></tr></table>
+</div>
+</div>
+<p>声明一个数据卷, 可用于挂载, []里面是路径，创建一个可以从本地主机或其他容器挂载的挂载点，一般用来存放数据库和需要保持的数据等。</p>
+
+<a class="post-dummy-target" id="user"></a><h4>USER</h4>
+
+<p>USER <uid>
+镜像正在运行时设置的一个UID,RUN命令执行时的用户</p>
+
+<a class="post-dummy-target" id="cmd"></a><h4>CMD</h4>
+
+<p>支持三种格式
+CMD [&ldquo;executable&rdquo;,&ldquo;param1&rdquo;,&ldquo;param2&rdquo;] 使用 exec 执行，推荐方式；
+CMD command param1 param2 在 /bin/sh 中执行，提供给需要交互的应用；
+CMD [&ldquo;param1&rdquo;,&ldquo;param2&rdquo;] 提供给 ENTRYPOINT 的默认参数；
+指定启动容器时执行的命令，每个 Dockerfile 只能有一条 CMD 命令。如果指定了多条命令，只有最后一条会被执行。</p>
+
+<a class="post-dummy-target" id="workdir"></a><h4>WORKDIR</h4>
+
+<p>指定RUN、CMD与ENTRYPOINT命令的工作目录
+例子:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">WORKDIR /opt/nodeapp</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="onbuild"></a><h4>ONBUILD</h4>
+
+<p>ONBUILD [INSTRUCTION]
+配置当所创建的镜像作为其它新创建镜像的基础镜像时，所执行的操作指令。</p>
+
+<p>例如:Dockerfile使用如下的内容创建了镜像image-A。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ONBUILD ADD . /app/src
+ONBUILD RUN /usr/local/bin/python-build --dir /app/src</pre></td></tr></table>
+</div>
+</div>
+<p>例如:如果基于 image-A 创建新的镜像时，新的Dockerfile中使用 FROM image-A指定基础镜像时，会自动执行 ONBUILD 指令内容，等价于在后面添加了两条指令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">FROM image-A
+#Automatically run the following
+ADD . /app/src
+RUN /usr/local/bin/python-build --dir /app/src</pre></td></tr></table>
+</div>
+</div>
+<p>使用 ONBUILD 指令的镜像，推荐在标签中注明，例如 ruby:1.9-onbuild。</p>
+
+<p>#ENTRYPOINT
+配置容器启动后执行的命令，并且不可被docker run提供的参数覆盖，而CMD是可以被覆盖的。如果需要覆盖，则可以使用docker run &ndash;entrypoint选项。每个Dockerfile中只能有一个ENTRYPOINT，当指定多个时，只有最后一个生效。
+支持两种格式
+ENTRYPOINT [ &ldquo;nodejs&rdquo;, &ldquo;server.js&rdquo; ]
+ENTRYPOINT command param1 param2（shell中执行）</p>
+
+<a class="post-dummy-target" id="expose"></a><h4>EXPOSE</h4>
+
+<p>EXPOSE <port>
+告知服务器容器在运行时监听的端口,在启动容器时需要通过 -P，Docker 主机会自动分配一个端口转发到指定的端口。
+例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">EXPOSE 3000</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="注意事项"></a><h4>注意事项</h4>
+
+<ul>
+<li>尽量精简,不安装多余的软件包</li>
+<li>编写.dockerignore 文件,排除一些目录和文件,语法类似于.gitignore</li>
+<li>尽量选择 Docker官方提供镜像作为基础版本,减少镜像体积.</li>
+<li>Dockerfile开头几行的指令应当固定下来,不建议频繁更改,有效利用缓存.</li>
+<li>多条RUN命令使用&rsquo;\&lsquo;连接,有利于理解且方便维护.</li>
+<li>COPY与ADD优先使用前者</li>
+<li>通过-t标记构建镜像,有利于管理新创建的镜像.</li>
+<li>不在Dockerfile中映射公有端口.</li>
+<li>Push前先在本地运行,确保构建的镜像无误.</li>
+</ul>
+
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2018-06-21 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2018/06/docker-dockerfile-details/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f06%2fdocker-dockerfile-details%2f&amp;text=Dockerfile%e8%af%ad%e6%b3%95%e8%af%a6%e6%83%85&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f06%2fdocker-dockerfile-details%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f06%2fdocker-dockerfile-details%2f&amp;title=Dockerfile%e8%af%ad%e6%b3%95%e8%af%a6%e6%83%85" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f06%2fdocker-dockerfile-details%2f&amp;title=Dockerfile%e8%af%ad%e6%b3%95%e8%af%a6%e6%83%85" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2018%2f06%2fdocker-dockerfile-details%2f&amp;appkey=&amp;title=Dockerfile%e8%af%ad%e6%b3%95%e8%af%a6%e6%83%85" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/docker/"><i class="fas fa-tag fa-fw"></i>docker</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/dockerfile/"><i class="fas fa-tag fa-fw"></i>dockerfile</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2018/06/docker-commands-base/" class="prev" rel="prev" title="Docker基础命令"><i class="fas fa-angle-left fa-fw"></i>Docker基础命令</a>
+        
+        
+            <a href="https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/" class="next" rel="next" title="Dockerfile多阶段构建">Dockerfile多阶段构建<i class="fas fa-angle-right fa-fw"></i></a>
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>

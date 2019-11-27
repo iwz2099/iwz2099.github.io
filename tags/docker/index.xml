@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 奔跑的丸子</title>
+    <link>https://wanzi.im/tags/docker/</link>
+    <description>Recent content in docker on 奔跑的丸子</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 02 Jul 2018 16:22:42 +0800</lastBuildDate>
+    
+	<atom:link href="https://wanzi.im/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dockerfile多阶段构建</title>
+      <link>https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/</link>
+      <pubDate>Mon, 02 Jul 2018 16:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/</guid>
+      <description>Docker多阶段构建理解:
+ 构建镜像需要有一个基础镜像,后续操作就会基于该基础镜像构建 docker镜像文件里有层级概念,每执行一次RUN指令,镜像就会多一层,所以通过减少层级来减少镜像大小 多个from的时候,只有最后一个from的镜像才是镜像的根镜像  自己项目部署中多阶段构建示例:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  FROM golang:1.12.7 as build MAINTAINER wanzi &amp;lt;iwz2099@163.com&amp;gt; # 编译配置相关 ARG NAME=gaia ARG FLAGS=-tags=jsoniter ARG GOOS=linux ARG GOARCH=amd64 ARG PORT_TO_EXPOSE=10020 ENV GOPROXY https://mirrors.aliyun.com/goproxy/ ENV GO111MODULE on WORKDIR /opt/gaia COPY . . RUN GOOS=$GOOS GOARCH=$GOARCH go build -mod vendor -ldflags=&amp;#34;-s -w&amp;#34; -o $NAME $FLAGS FROM alpine WORKDIR /opt/gaia COPY --from=build /opt/gaia/gaia .</description>
+    </item>
+    
+    <item>
+      <title>Dockerfile语法详情</title>
+      <link>https://wanzi.im/posts/2018/06/docker-dockerfile-details/</link>
+      <pubDate>Thu, 21 Jun 2018 16:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2018/06/docker-dockerfile-details/</guid>
+      <description>FROM 指定构建镜像使用的基础镜像,FROM必须是Dockerfile中非注释行的第一个指令,如果本地没有指定的镜像，则会自动从Docker的公共库pull镜像下来。 例子：
+1  FROM ubuntu:14.04 #继承ubuntu:14.04   MAINTAINER 指定创建者信息
+MAINTAINER wanzi &amp;ldquo;iwz2099@163.com&amp;rdquo;
+ENV 设置环境变量，会被后续 RUN 指令使用，并在容器运行时保持。 ENV   # 只能设置一个变量 ENV = &amp;hellip; # 允许一次设置多个变量 例子：
+1 2  ENV LANG en_US.UTF-8 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8   RUN RUN  或 RUN [&amp;ldquo;executable&amp;rdquo;, &amp;ldquo;param1&amp;rdquo;, &amp;ldquo;param2&amp;rdquo;]。 例子：
+1 2  RUN yum -y install bind-utils RUN [&amp;#34;/bin/bash&amp;#34;, &amp;#34;-c&amp;#34;, &amp;#34;yum -y install bind-utils&amp;#34;]   前者将在shell终端中运行命令,即 /bin/sh -c yum -y install bind-utils；后者则使用exec执行。指定使用其它终端可以通过第二种方式实现。 每条RUN指令将在当前镜像基础上执行指定命令，并提交为新的镜像，后续的RUN都在之前RUN提交后的镜像为基础，镜像是分层的，可以通过一个镜像的任何一个历史提交点来创建，类似源码的版本控制。当命令较长时可以使用 \ 来换行。</description>
+    </item>
+    
+    <item>
+      <title>Docker基础命令</title>
+      <link>https://wanzi.im/posts/2018/06/docker-commands-base/</link>
+      <pubDate>Wed, 20 Jun 2018 16:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2018/06/docker-commands-base/</guid>
+      <description>&lt;h4 id=&#34;基础命令&#34;&gt;基础命令&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;docker info     #查看本地docker信息
+docker search  openresty   #搜索远程镜像仓库
+docker images      #查看当前系统镜像仓库镜像
+docker pull centos  #获取远程镜像，默认不指定tag,为latest     
+docker container  run -p 8000:80 --rm -t -i centos:latest /bin/bash  #-p将容器端口映射80到节点node8000端口，--rm终止后删除容器适合临时调试，-t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， -i 则让容器的标准输入保持打开
+docker container exec -i -t b5d7bad57561 /bin/bash #进入正在运行容器
+docker rmi $(docker images -f &amp;#34;dangling=true&amp;#34; -q) #批量删除无效的none镜像&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
