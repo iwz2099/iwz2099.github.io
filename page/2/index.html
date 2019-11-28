@@ -191,6 +191,56 @@
     
     
     <h1 class="post-title post-list-title" itemprop="name headline">
+        <a href="https://wanzi.im/posts/2018/06/docker-dockerfile-details/">Dockerfile语法详情</a>
+    </h1>
+
+    <div class="post-meta">
+        <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+        发布于&nbsp;<time datetime=2018-06-21>2018-06-21</time>&nbsp;
+        <span class="post-category">
+                收录于
+                <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/docker/">docker</a>
+                    
+            </span>
+    </div>
+    <div class="post-content">
+        
+            
+            
+            
+            
+            
+            
+            
+            FROM 指定构建镜像使用的基础镜像,FROM必须是Dockerfile中非注释行的第一个指令,如果本地没有指定的镜像，则会自动从Docker的公共库pull镜像下来。 例子：
+1  FROM ubuntu:14.04 #继承ubuntu:14.04   MAINTAINER 指定创建者信息
+MAINTAINER wanzi &ldquo;iwz2099@163.com&rdquo;
+ENV 设置环境变量，会被后续 RUN 指令使用，并在容器运行时保持。 ENV   # 只能设置一个变量 ENV = &hellip; # 允许一次设置多个变量 例子：
+1 2  ENV LANG en_US.UTF-8 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8   RUN RUN  或 RUN [&ldquo;executable&rdquo;, &ldquo;param1&rdquo;, &ldquo;param2&rdquo;]。 例子：
+1 2  RUN yum -y install bind-utils RUN [&#34;/bin/bash&#34;, &#34;-c&#34;, &#34;yum -y install bind-utils&#34;]   前者将在shell终端中运行命令,即 /bin/sh -c yum -y install bind-utils；后者则使用exec执行。指定使用其它终端可以通过第二种方式实现。 每条RUN指令将在当前镜像基础上执行指定命令，并提交为新的镜像，后续的RUN都在之前RUN提交后的镜像为基础，镜像是分层的，可以通过一个镜像的任何一个历史提交点来创建，类似源码的版本控制。当命令较长时可以使用 \ 来换行。
+        
+    </div>
+    <div class="post-footer">
+        <a href="https://wanzi.im/posts/2018/06/docker-dockerfile-details/">阅读全文</a>
+        
+            <div class="post-tags">
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/docker/"><i class="fas fa-tag fa-fw"></i>docker</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/dockerfile/"><i class="fas fa-tag fa-fw"></i>dockerfile</a></span>
+                
+            </div>
+        
+    </div>
+</article><article class="post" itemscope itemtype="http://schema.org/Article">
+    
+    
+    
+
+    
+    
+    
+    <h1 class="post-title post-list-title" itemprop="name headline">
         <a href="https://wanzi.im/posts/2018/06/docker-commands-base/">Docker基础命令</a>
     </h1>
 

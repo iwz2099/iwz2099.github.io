@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>other on 奔跑的丸子</title>
-    <link>https://wanzi.im/categories/other/</link>
-    <description>Recent content in other on 奔跑的丸子</description>
+    <title>iterm2 on 奔跑的丸子</title>
+    <link>https://wanzi.im/tags/iterm2/</link>
+    <description>Recent content in iterm2 on 奔跑的丸子</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 10 Nov 2019 16:22:42 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 10 Nov 2018 10:22:42 +0800</lastBuildDate>
     
-	<atom:link href="https://wanzi.im/categories/other/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wanzi.im/tags/iterm2/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Hugo&#43;Github搭建个人博客</title>
-      <link>https://wanzi.im/posts/2019/11/other-hugo-github-blog/</link>
-      <pubDate>Sun, 10 Nov 2019 16:22:42 +0800</pubDate>
-      
-      <guid>https://wanzi.im/posts/2019/11/other-hugo-github-blog/</guid>
-      <description>介绍 之前博客一直使用hexo搭建,随着用golang越来越多，一直想把博客也迁移到hugo,hugo就不用多说了go语言编写的静态网站生成器,简单、易用、高效、易扩展、快速部署.
-我网站目录结构如下:
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  ├── archetypes #存放default.md，头文件格式 │ └── default.md ├── config.toml #整个网站项目全局配置 ├── content #content目录存放博客文章（markdown文件） │ ├── about.md │ └── posts ├── data #存放数据或配置,可以是json|toml|yaml ├── layouts #存放的是网站的模板文件 ├── public #hugo编译后生成的静态文件 │ ├── 404.html │ ├── CNAME │ ├── about │ ├── categories │ ├── css │ ├── images │ ├── index.</description>
-    </item>
     
     <item>
       <title>Mac系统配置炫酷终端(oh my zsh)</title>

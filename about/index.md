@@ -11,16 +11,14 @@
 * :(fab fa-linux): Linux
 * :(fab fa-python): Python
 * Docker/Harbor
-* Kubernetes/CoreDNS/Helm/Operator/Consul
-* Rancher
+* Kubernetes/CoreDNS/Helm/Operator/Consul/Rancher/Etcd
 * Mysql/Redis
 * Saltstack/Ansible
-* Jenkins/Gitlab/Drone
+* Jenkins/Gitlab
 * Grafana/Prometheus/Open-falcon/InfluxDB
 * Elasticsearch/FileBeat/Fluentd
-* Etcd
 * Kafka/Pulsar
-* Ceph/HDFS/Rook
+* Ceph/HDFS
 * Istio
 * ...
 

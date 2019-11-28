@@ -46,6 +46,19 @@
     </item>
     
     <item>
+      <title>Mac系统配置炫酷终端(oh my zsh)</title>
+      <link>https://wanzi.im/posts/2018/11/other-zsh-cool-install/</link>
+      <pubDate>Sat, 10 Nov 2018 10:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2018/11/other-zsh-cool-install/</guid>
+      <description>brew工具 官网:https://brew.sh
+安装brew
+1  /usr/bin/ruby -e &amp;#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;#34;   修改brew源为国内源
+1 2 3 4 5 6 7  git -C &amp;#34;$(brew --repo)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git git -C &amp;#34;$(brew --repo homebrew/core)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git git -C &amp;#34;$(brew --repo homebrew/cask)&amp;#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles #追加到~/.zshrc brew update #更新homebrew brew upgrade #升级所有已经安装包 brew cleanup #升级完成后清理旧版本包   iterm2 安装iterm2
+1  brew cask install iterm2   配置:</description>
+    </item>
+    
+    <item>
       <title>Git基础命令</title>
       <link>https://wanzi.im/posts/2018/07/git-commands-base/</link>
       <pubDate>Sat, 28 Jul 2018 17:22:42 +0800</pubDate>
