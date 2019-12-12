@@ -3,10 +3,6 @@
 
 #### 环境准备
 
-* 架构:
-
-![架构图](https://github.com/easzlab/kubeasz/blob/master/pics/ha-2x.gif)
-
 * Master节点
 ```
 172.16.244.14
@@ -33,12 +29,15 @@
 apt update
 apt-get install ansible expect
 git clone https://github.com/easzlab/kubeasz
+cd kubeasz
 cp * /etc/ansible/
-cd /etc/ansible
 ```
+
 2. 配置ansible免密登录
+```
 ssh-keygen -t rsa -b 2048 #生成密钥
 ./tools/yc-ssh-key-copy.sh  hosts root 'rootpassword'
+```
 
 3. 准备二进制文件
 ```
@@ -125,9 +124,11 @@ cd /etc/ansible
 ansible-playbook 01.prepare.yml
 ```
 这个过程主要做三件事：
--  chrony role: 集群节点时间同步[可选]
--  deploy role: 创建CA证书、kubeconfig、kube-proxy.kubeconfig
--  prepare role: 分发CA证书、kubectl客户端安装、环境配置
+```
+chrony role: 集群节点时间同步[可选]
+deploy role: 创建CA证书、kubeconfig、kube-proxy.kubeconfig
+prepare role: 分发CA证书、kubectl客户端安装、环境配置
+```
 
 2. 安装etcd集群
 ```
@@ -159,7 +160,7 @@ ansible-playbook 06.network.yml
 > 配置ingress所用ssl证书, 这里仓库默认使用的traefik1.7.12,后边我们打算升级为2.0
 ```
 kubectl create secret tls traefik-cert --key=test.cn.key --cert=test.cn.pem  -n kube-system
-secret/traefik-cert created  
+secret/traefik-cert created
 ```
 > 部署集群扩展
 ```
@@ -202,7 +203,8 @@ ansible-playbook   roles/ex-lb/ex-lb.yml
 ---
 
 #### 安装Helm3
-> 参考https://rancher.com/docs/rancher/v2.x/en/installation/ha/helm-rancher/
+
+参考 https://rancher.com/docs/rancher/v2.x/en/installation/ha/helm-rancher/
 
 ```
 cd /opt/soft

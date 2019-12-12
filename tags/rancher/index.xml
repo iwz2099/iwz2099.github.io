@@ -18,13 +18,13 @@
       <pubDate>Thu, 12 Dec 2019 10:22:42 +0800</pubDate>
       
       <guid>https://wanzi.im/posts/2019/12/kubernetes-deploy-automation/</guid>
-      <description>环境准备  架构:   Master节点
+      <description>环境准备  Master节点
 1 2 3  172.16.244.14 172.16.244.16 172.16.244.18   Node节点
 1 2  172.16.244.25 172.16.244.27   Master节点VIP地址: 172.16.243.13
  部署工具:Ansible/kubeasz
   初始化环境  安装Ansible
-1 2 3 4 5  apt update apt-get install ansible expect git clone https://github.com/easzlab/kubeasz cp * /etc/ansible/ cd /etc/ansible   配置ansible免密登录 ssh-keygen -t rsa -b 2048 #生成密钥 ./tools/yc-ssh-key-copy.sh hosts root &amp;lsquo;rootpassword&amp;rsquo;
- 准备二进制文件
+1 2 3 4 5  apt update apt-get install ansible expect git clone https://github.com/easzlab/kubeasz cd kubeasz cp * /etc/ansible/   配置ansible免密登录
+1 2  ssh-keygen -t rsa -b 2048 #生成密钥 ./tools/yc-ssh-key-copy.sh hosts root &amp;#39;rootpassword&amp;#39;   准备二进制文件
 1 2  cd tools .</description>
     </item>
     
