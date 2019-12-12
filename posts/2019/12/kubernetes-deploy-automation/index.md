@@ -234,7 +234,7 @@ helm install rancher rancher-latest/rancher \
 ```
 # kubectl  get ingress  --all-namespaces
 NAMESPACE       NAME      HOSTS                   ADDRESS   PORTS     AGE
-cattle-system   rancher   rancher-cicd.aibee.cn             80, 443   20h
+cattle-system   rancher   rancher-cicd.test.cn             80, 443   20h
 # kubectl -n cattle-system rollout status deploy/rancher
 Waiting for deployment "rancher" rollout to finish: 0 of 3 updated replicas are available...
 Waiting for deployment "rancher" rollout to finish: 1 of 3 updated replicas are available...
