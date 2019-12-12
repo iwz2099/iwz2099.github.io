@@ -1,9 +1,149 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     
         <url>
+            <loc>https://wanzi.im/tags/ansible/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
             <loc>https://wanzi.im/categories/</loc>
             
-                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/helm3/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/k8s/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/categories/kubernetes/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/kubernetes/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/rancher/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/tags/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
+            
+            
+                <changefreq>weekly</changefreq>
+            
+            
+                <priority>0.5</priority>
+            
+            
+        </url>
+    
+        <url>
+            <loc>https://wanzi.im/posts/2019/12/kubernetes-deploy-automation/</loc>
+            
+                <lastmod>2019-12-12T17:22:42+08:00</lastmod>
             
             
                 <changefreq>weekly</changefreq>
@@ -57,34 +197,6 @@
         </url>
     
         <url>
-            <loc>https://wanzi.im/tags/k8s/</loc>
-            
-                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
-            
-            
-                <changefreq>weekly</changefreq>
-            
-            
-                <priority>0.5</priority>
-            
-            
-        </url>
-    
-        <url>
-            <loc>https://wanzi.im/tags/kubernetes/</loc>
-            
-                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
-            
-            
-                <changefreq>weekly</changefreq>
-            
-            
-                <priority>0.5</priority>
-            
-            
-        </url>
-    
-        <url>
             <loc>https://wanzi.im/categories/linux/</loc>
             
                 <lastmod>2019-11-14T17:22:42+08:00</lastmod>
@@ -99,49 +211,7 @@
         </url>
     
         <url>
-            <loc>https://wanzi.im/posts/</loc>
-            
-                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
-            
-            
-                <changefreq>weekly</changefreq>
-            
-            
-                <priority>0.5</priority>
-            
-            
-        </url>
-    
-        <url>
-            <loc>https://wanzi.im/tags/</loc>
-            
-                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
-            
-            
-                <changefreq>weekly</changefreq>
-            
-            
-                <priority>0.5</priority>
-            
-            
-        </url>
-    
-        <url>
             <loc>https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/</loc>
-            
-                <lastmod>2019-11-14T17:22:42+08:00</lastmod>
-            
-            
-                <changefreq>weekly</changefreq>
-            
-            
-                <priority>0.5</priority>
-            
-            
-        </url>
-    
-        <url>
-            <loc>https://wanzi.im/</loc>
             
                 <lastmod>2019-11-14T17:22:42+08:00</lastmod>
             

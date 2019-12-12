@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>自动化部署k8s集群 | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="使用ansible自动化搭建k8s集群">
+<link rel="prev" href="https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/" />
+<link rel="canonical" href="https://wanzi.im/posts/2019/12/kubernetes-deploy-automation/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="自动化部署k8s集群"/>
+<meta name="twitter:description" content="使用ansible自动化搭建k8s集群"/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "自动化部署k8s集群",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2019\/12\/kubernetes-deploy-automation\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "kubernetes, k8s, ansible, helm3, rancher",
+    
+    "wordcount":  599 ,
+    "url": "https:\/\/wanzi.im\/posts\/2019\/12\/kubernetes-deploy-automation\/",
+    
+        "datePublished": "2019-12-12T10:22:42\x2b08:00",
+    
+    
+        "dateModified": "2019-12-12T17:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "使用ansible自动化搭建k8s集群"
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">自动化部署k8s集群</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/kubernetes/">Kubernetes</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-12-12>2019-12-12</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 599 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 3 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#环境准备">环境准备</a></li>
+<li><a href="#初始化环境">初始化环境</a></li>
+<li><a href="#部署k8s集群">部署K8S集群</a></li>
+<li><a href="#部署外部负载均衡器-keepalived-haproxy">部署外部负载均衡器(Keepalived+Haproxy)</a></li>
+<li><a href="#安装helm3">安装Helm3</a></li>
+<li><a href="#部署rancher">部署Rancher</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        <nav id="TableOfContentsMobile">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#环境准备">环境准备</a></li>
+<li><a href="#初始化环境">初始化环境</a></li>
+<li><a href="#部署k8s集群">部署K8S集群</a></li>
+<li><a href="#部署外部负载均衡器-keepalived-haproxy">部署外部负载均衡器(Keepalived+Haproxy)</a></li>
+<li><a href="#安装helm3">安装Helm3</a></li>
+<li><a href="#部署rancher">部署Rancher</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+<a class="post-dummy-target" id="环境准备"></a><h4>环境准备</h4>
+
+<ul>
+<li>架构:</li>
+</ul>
+
+<p><figure><img src=/images/loading.svg data-sizes=auto data-src=https://github.com/easzlab/kubeasz/blob/master/pics/ha-2x.gif alt=架构图 class=lazyload><figcaption class=image-caption>架构图</figcaption></figure></p>
+
+<ul>
+<li><p>Master节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">172.16.244.14
+172.16.244.16
+172.16.244.18</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Node节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">172.16.244.25
+172.16.244.27</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>Master节点VIP地址: 172.16.243.13</p></li>
+
+<li><p>部署工具:Ansible/kubeasz</p></li>
+</ul>
+
+<hr />
+
+<a class="post-dummy-target" id="初始化环境"></a><h4>初始化环境</h4>
+
+<ol>
+<li><p>安装Ansible</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apt update
+apt-get install ansible expect
+git clone https://github.com/easzlab/kubeasz
+cp * /etc/ansible/
+cd /etc/ansible</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>配置ansible免密登录
+ssh-keygen -t rsa -b 2048 #生成密钥
+./tools/yc-ssh-key-copy.sh  hosts root &lsquo;rootpassword&rsquo;</p></li>
+
+<li><p>准备二进制文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd tools
+./easzup -D #默认情况都会下载到/etc/ansible/bin/目录下</pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<p>4、配置hosts文件如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">[kube-master]
+172.16.244.14
+172.16.244.16
+172.16.244.18
+
+[etcd]
+172.16.244.14 NODE_NAME=etcd1
+172.16.244.16 NODE_NAME=etcd2
+172.16.244.18 NODE_NAME=etcd3
+
+#haproxy-keepalived
+[haproxy]
+172.16.244.14
+172.16.244.16
+172.16.244.18
+
+[kube-node]
+172.16.244.25
+172.16.244.27
+
+
+# [optional] loadbalance for accessing k8s from outside
+[ex-lb]
+172.16.244.14 LB_ROLE=backup EX_APISERVER_VIP=172.16.243.13 EX_APISERVER_PORT=8443
+172.16.244.16 LB_ROLE=backup EX_APISERVER_VIP=172.16.243.13 EX_APISERVER_PORT=8443
+172.16.244.18 LB_ROLE=master EX_APISERVER_VIP=172.16.243.13 EX_APISERVER_PORT=8443
+
+# [optional] ntp server for the cluster
+[chrony]
+172.16.244.18
+
+[all:vars]
+# --------- Main Variables ---------------
+# Cluster container-runtime supported: docker, containerd
+CONTAINER_RUNTIME=&#34;docker&#34;
+
+# Network plugins supported: calico, flannel, kube-router, cilium, kube-ovn
+#CLUSTER_NETWORK=&#34;flannel&#34;
+CLUSTER_NETWORK=&#34;calico&#34;
+
+# Service proxy mode of kube-proxy: &#39;iptables&#39; or &#39;ipvs&#39;
+PROXY_MODE=&#34;ipvs&#34;
+
+# K8S Service CIDR, not overlap with node(host) networking
+SERVICE_CIDR=&#34;10.68.0.0/16&#34;
+
+# Cluster CIDR (Pod CIDR), not overlap with node(host) networking
+CLUSTER_CIDR=&#34;10.101.0.0/16&#34;
+
+# NodePort Range
+NODE_PORT_RANGE=&#34;20000-40000&#34;
+
+# Cluster DNS Domain
+CLUSTER_DNS_DOMAIN=&#34;cluster.local.&#34;
+
+# -------- Additional Variables (don&#39;t change the default value right now) ---
+# Binaries Directory
+bin_dir=&#34;/opt/kube/bin&#34;
+
+# CA and other components cert/key Directory
+ca_dir=&#34;/etc/kubernetes/ssl&#34;
+
+# Deploy Directory (kubeasz workspace)
+base_dir=&#34;/etc/ansible&#34;</pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<a class="post-dummy-target" id="部署k8s集群"></a><h4>部署K8S集群</h4>
+
+<ol>
+<li><p>初始化配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd /etc/ansible
+ansible-playbook 01.prepare.yml</pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<p>这个过程主要做三件事：
+-  chrony role: 集群节点时间同步[可选]
+-  deploy role: 创建CA证书、kubeconfig、kube-proxy.kubeconfig
+-  prepare role: 分发CA证书、kubectl客户端安装、环境配置</p>
+
+<ol>
+<li><p>安装etcd集群</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ansible-playbook 02.etcd.yml</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>安装docker</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ansible-playbook 03.docker.yml</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>部署kubernetes master</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ansible-playbook 04.kube-master.yml</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>部署kubernetes node</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ansible-playbook 05.kube-node.yml</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>部署kubernetes network(这里选择calico)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ansible-playbook 06.network.yml</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>部署ingress/k8s dashbaord/coredns</p></li>
+</ol>
+
+<blockquote>
+<p>配置ingress所用ssl证书, 这里仓库默认使用的traefik1.7.12,后边我们打算升级为2.0</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl create secret tls traefik-cert --key=test.cn.key --cert=test.cn.pem  -n kube-system
+secret/traefik-cert created  </pre></td></tr></table>
+</div>
+</div>
+<p>部署集群扩展</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ansible-playbook 07.cluster-addon.yml</pre></td></tr></table>
+</div>
+</div></blockquote>
+
+<ol>
+<li><p>master节点取消污点
+&gt; 默认部署完后，master节点状态是打了污点，不在调度策略如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># kubectl  get node
+NAME            STATUS                     ROLES    AGE   VERSION
+172.16.244.14   Ready,SchedulingDisabled   master   91m   v1.16.2
+172.16.244.16   Ready,SchedulingDisabled   master   91m   v1.16.2
+172.16.244.18   Ready,SchedulingDisabled   master   91m   v1.16.2
+172.16.244.25   Ready                      node     90m   v1.16.2
+172.16.244.27   Ready                      node     90m   v1.16.2
+# kubectl  describe node  172.16.244.14 |grep Taint
+Taints:             node.kubernetes.io/unschedulable:NoSchedule</pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<p>由于机器资源有限，所以把master也加入调度可用状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># kubectl patch node 172.16.244.14 -p &#39;{&#34;spec&#34;:{&#34;unschedulable&#34;:false}}&#39;
+# kubectl  get node
+NAME            STATUS   ROLES    AGE   VERSION
+172.16.244.14   Ready    master   95m   v1.16.2
+172.16.244.16   Ready    master   95m   v1.16.2
+172.16.244.18   Ready    master   95m   v1.16.2
+172.16.244.25   Ready    node     94m   v1.16.2
+172.16.244.27   Ready    node     94m   v1.16.2</pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<a class="post-dummy-target" id="部署外部负载均衡器-keepalived-haproxy"></a><h4>部署外部负载均衡器(Keepalived+Haproxy)</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">ansible-playbook   roles/ex-lb/ex-lb.yml</pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<a class="post-dummy-target" id="安装helm3"></a><h4>安装Helm3</h4>
+
+<blockquote>
+<p>参考<a href="https://rancher.com/docs/rancher/v2.x/en/installation/ha/helm-rancher/">https://rancher.com/docs/rancher/v2.x/en/installation/ha/helm-rancher/</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cd /opt/soft
+wget https://get.helm.sh/helm-v3.0.1-linux-amd64.tar.gz
+tar xf helm-v3.0.1-linux-amd64.tar.gz
+cd linux-amd64/
+cp helm  /usr/local/bin/</pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<a class="post-dummy-target" id="部署rancher"></a><h4>部署Rancher</h4>
+
+<ol>
+<li><p>创建证书
+&gt; 因为由自己域名证书,所以这里使用k8s的secret创建的证书,当然也可以使用cert-manager工具签发rancher自己的证书或者使用letsEncrypt</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl -n cattle-system create secret tls tls-rancher-ingress --cert=test.cn.pem  --key=test.cn.key</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>安装rancher</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
+helm repo update
+helm install rancher rancher-latest/rancher \
+--namespace cattle-system \
+--set hostname=rancher-cicd.test.cn --set ingress.tls.source=secret</pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>检查ingress、资源和部署状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># kubectl  get ingress  --all-namespaces
+NAMESPACE       NAME      HOSTS                   ADDRESS   PORTS     AGE
+cattle-system   rancher   rancher-cicd.aibee.cn             80, 443   20h
+# kubectl -n cattle-system rollout status deploy/rancher
+Waiting for deployment &#34;rancher&#34; rollout to finish: 0 of 3 updated replicas are available...
+Waiting for deployment &#34;rancher&#34; rollout to finish: 1 of 3 updated replicas are available...
+Waiting for deployment &#34;rancher&#34; rollout to finish: 2 of 3 updated replicas are available...
+deployment &#34;rancher&#34; successfully rolled out
+# kubectl -n cattle-system get deploy rancher
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+rancher   3/3     3            3           5m5s</pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+
+<p>至此，整个K8S集群已经搭建完毕，如果顺利的话，整个过程应该在10分钟左右，重要的是提前规划好集群。</p>
+
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2019-12-12 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2019/12/kubernetes-deploy-automation/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-deploy-automation%2f&amp;text=%e8%87%aa%e5%8a%a8%e5%8c%96%e9%83%a8%e7%bd%b2k8s%e9%9b%86%e7%be%a4&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-deploy-automation%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-deploy-automation%2f&amp;title=%e8%87%aa%e5%8a%a8%e5%8c%96%e9%83%a8%e7%bd%b2k8s%e9%9b%86%e7%be%a4" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-deploy-automation%2f&amp;title=%e8%87%aa%e5%8a%a8%e5%8c%96%e9%83%a8%e7%bd%b2k8s%e9%9b%86%e7%be%a4" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-deploy-automation%2f&amp;appkey=&amp;title=%e8%87%aa%e5%8a%a8%e5%8c%96%e9%83%a8%e7%bd%b2k8s%e9%9b%86%e7%be%a4" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/kubernetes/"><i class="fas fa-tag fa-fw"></i>kubernetes</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/k8s/"><i class="fas fa-tag fa-fw"></i>k8s</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/ansible/"><i class="fas fa-tag fa-fw"></i>ansible</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/helm3/"><i class="fas fa-tag fa-fw"></i>helm3</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/rancher/"><i class="fas fa-tag fa-fw"></i>rancher</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2019/11/devops-gitlab-k8s-gitlabrunner/" class="prev" rel="prev" title="基于K8S部署gitlab-runner"><i class="fas fa-angle-left fa-fw"></i>基于K8S部署gitlab-runner</a>
+        
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>
