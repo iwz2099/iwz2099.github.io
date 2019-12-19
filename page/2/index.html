@@ -191,6 +191,61 @@
     
     
     <h1 class="post-title post-list-title" itemprop="name headline">
+        <a href="https://wanzi.im/posts/2018/07/git-commands-base/">Git基础命令</a>
+    </h1>
+
+    <div class="post-meta">
+        <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+        发布于&nbsp;<time datetime=2018-07-28>2018-07-28</time>&nbsp;
+        <span class="post-category">
+                收录于
+                <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/linux/">Linux</a>
+                    
+            </span>
+    </div>
+    <div class="post-content">
+        
+            
+            
+            
+            
+            
+            
+            
+            <h4 id="git全局设置">Git全局设置：</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">git config --global user.name &#34;wanzi&#34;
+git config --global user.email &#34;iwz2099@163.com&#34;</pre></td></tr></table>
+</div>
+</div>
+        
+    </div>
+    <div class="post-footer">
+        <a href="https://wanzi.im/posts/2018/07/git-commands-base/">阅读全文</a>
+        
+            <div class="post-tags">
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/git/"><i class="fas fa-tag fa-fw"></i>git</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/%E5%91%BD%E4%BB%A4/"><i class="fas fa-tag fa-fw"></i>命令</a></span>
+                
+            </div>
+        
+    </div>
+</article><article class="post" itemscope itemtype="http://schema.org/Article">
+    
+    
+    
+
+    
+    
+    
+    <h1 class="post-title post-list-title" itemprop="name headline">
         <a href="https://wanzi.im/posts/2018/07/docker-dockerfile-multi-stage/">Dockerfile多阶段构建</a>
     </h1>
 
@@ -435,49 +490,6 @@ docker rmi $(docker images -f &#34;dangling=true&#34; -q) #批量删除无效的
                     &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/saltstack/"><i class="fas fa-tag fa-fw"></i>saltstack</a></span>
                 
                     &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/saltapi/"><i class="fas fa-tag fa-fw"></i>saltapi</a></span>
-                
-            </div>
-        
-    </div>
-</article><article class="post" itemscope itemtype="http://schema.org/Article">
-    
-    
-    
-
-    
-    
-    
-    <h1 class="post-title post-list-title" itemprop="name headline">
-        <a href="https://wanzi.im/posts/2018/02/devops-saltstack-commands/">saltstack之salt命令大全</a>
-    </h1>
-
-    <div class="post-meta">
-        <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
-        发布于&nbsp;<time datetime=2018-02-10>2018-02-10</time>&nbsp;
-        <span class="post-category">
-                收录于
-                <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/devops/">devops</a>
-                    
-            </span>
-    </div>
-    <div class="post-content">
-        
-            
-            
-            
-            
-            
-            
-            
-            常用命令 1 2 3 4 5 6 7 8 9  salt -N &#39;ceph&#39; test.ping #测试连通性 salt -E &#39;^server10*&#39; test.ping #正则匹配连通性 salt -S 192.168.150.101 test.ping #根据agent ip地址匹配执行 salt -S 192.168.150.0/24 test.ping #根据agent ip地址匹配执行 salt -N &#39;ceph&#39; cmd.run &#39;df -Th&#39; #按组查看磁盘使用 salt -N &#39;ceph&#39; cmd.exec_code python &#39;import os; print os.system(&#34;df -Th&#34;)&#39; #python代码执行 salt -N &#39;ceph&#39; cmd.exec_code perl &#39;print scalar localtime&#39; #perl代码执行 salt -G &#39;osrelease:6.3&#39; cmd.run &#39;python -V&#39; #根据grans信息过滤后执行 salt &#39;*&#39; smbios.
-        
-    </div>
-    <div class="post-footer">
-        <a href="https://wanzi.im/posts/2018/02/devops-saltstack-commands/">阅读全文</a>
-        
-            <div class="post-tags">
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/saltstack/"><i class="fas fa-tag fa-fw"></i>saltstack</a></span>
                 
             </div>
         
