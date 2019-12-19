@@ -17,7 +17,7 @@
 * Mysql/Redis
 * Kafka/Pulsar
 * Ceph/HDFS
-* Istio
+* Maesh/Istio
 * ...
 
 #### My Projects

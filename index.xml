@@ -17,11 +17,11 @@
         <atom:link href="https://wanzi.im/" rel="self" type="application/rss+xml" />
         
             <item>
-                <title>github-mark</title>
-                <link>https://wanzi.im/github-mark/</link>
+                <title>Mark</title>
+                <link>https://wanzi.im/mark/</link>
                 <pubDate>Thu, 19 Dec 2019 11:04:49 +0800</pubDate>
                 
-                <guid>https://wanzi.im/github-mark/</guid>
+                <guid>https://wanzi.im/mark/</guid>
                 <description>
 
 &lt;p&gt;梳理一些好的Github项目&lt;/p&gt;
@@ -29,27 +29,28 @@
 &lt;h4 id=&#34;kubernetes&#34;&gt;kubernetes&lt;/h4&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/opsnull/follow-me-install-kubernetes-cluster&#34;&gt;follow-me-install-kubernetes-cluster&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/opsnull/follow-me-install-kubernetes-cluster&#34;&gt;follow-me-install-kubernetes-cluster&lt;/a&gt;:一步一步安装kubernetes集群&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/easzlab/kubeasz&#34;&gt;kubeasz&lt;/a&gt;:通过ansible部署kubernetes集群&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&#34;books&#34;&gt;Books&lt;/h4&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/EbookFoundation/free-programming-books&#34;&gt;free-programming-books&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/EbookFoundation/free-programming-books&#34;&gt;free-programming-books&lt;/a&gt;:免费编程书籍&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&#34;skills&#34;&gt;Skills&lt;/h4&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/trimstray/test-your-sysadmin-skills&#34;&gt;test-your-sysadmin-skills&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/TeamStuQ/skill-map&#34;&gt;skill-map&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/dev-sec/ansible-os-hardening&#34;&gt;ansible-os-hardening&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/trimstray/test-your-sysadmin-skills&#34;&gt;test-your-sysadmin-skills&lt;/a&gt;:Linux系统管理员测试问答集锦&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/TeamStuQ/skill-map&#34;&gt;skill-map&lt;/a&gt;:程序员技能图谱&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/dev-sec/ansible-os-hardening&#34;&gt;ansible-os-hardening&lt;/a&gt;:Ansible安全相关配置&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&#34;tools&#34;&gt;Tools&lt;/h4&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/islenbo/autossh&#34;&gt;autossh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/islenbo/autossh&#34;&gt;autossh&lt;/a&gt;:kubernetes集群相关应用配置示例&lt;/li&gt;
 &lt;/ul&gt;
 </description>
             </item>
@@ -86,7 +87,7 @@
 &lt;li&gt;Mysql/Redis&lt;/li&gt;
 &lt;li&gt;Kafka/Pulsar&lt;/li&gt;
 &lt;li&gt;Ceph/HDFS&lt;/li&gt;
-&lt;li&gt;Istio&lt;/li&gt;
+&lt;li&gt;Maesh/Istio&lt;/li&gt;
 &lt;li&gt;&amp;hellip;&lt;/li&gt;
 &lt;/ul&gt;
 
