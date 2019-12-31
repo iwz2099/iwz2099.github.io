@@ -191,6 +191,61 @@
     
     
     <h1 class="post-title post-list-title" itemprop="name headline">
+        <a href="https://wanzi.im/posts/2018/11/other-zsh-cool-install/">Mac系统配置炫酷终端(oh my zsh)</a>
+    </h1>
+
+    <div class="post-meta">
+        <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+        发布于&nbsp;<time datetime=2018-11-10>2018-11-10</time>&nbsp;
+        <span class="post-category">
+                收录于
+                <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/other/">other</a>
+                    
+            </span>
+    </div>
+    <div class="post-content">
+        
+            
+            
+            
+            
+            
+            
+            
+            brew工具 官网:https://brew.sh
+安装brew
+1  /usr/bin/ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;   修改brew源为国内源
+1 2 3 4 5 6 7  git -C &#34;$(brew --repo)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git git -C &#34;$(brew --repo homebrew/core)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git git -C &#34;$(brew --repo homebrew/cask)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles #追加到~/.zshrc brew update #更新homebrew brew upgrade #升级所有已经安装包 brew cleanup #升级完成后清理旧版本包   iterm2 安装iterm2
+1  brew cask install iterm2   配置:
+        
+    </div>
+    <div class="post-footer">
+        <a href="https://wanzi.im/posts/2018/11/other-zsh-cool-install/">阅读全文</a>
+        
+            <div class="post-tags">
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/zsh/"><i class="fas fa-tag fa-fw"></i>zsh</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/mac/"><i class="fas fa-tag fa-fw"></i>MAC</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/ohmyzsh/"><i class="fas fa-tag fa-fw"></i>ohmyzsh</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/brew/"><i class="fas fa-tag fa-fw"></i>brew</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/iterm2/"><i class="fas fa-tag fa-fw"></i>iterm2</a></span>
+                
+            </div>
+        
+    </div>
+</article><article class="post" itemscope itemtype="http://schema.org/Article">
+    
+    
+    
+
+    
+    
+    
+    <h1 class="post-title post-list-title" itemprop="name headline">
         <a href="https://wanzi.im/posts/2018/07/git-commands-base/">Git基础命令</a>
     </h1>
 
@@ -442,54 +497,6 @@ docker rmi $(docker images -f &#34;dangling=true&#34; -q) #批量删除无效的
                     &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/ca/"><i class="fas fa-tag fa-fw"></i>ca</a></span>
                 
                     &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/%E8%AF%81%E4%B9%A6/"><i class="fas fa-tag fa-fw"></i>证书</a></span>
-                
-            </div>
-        
-    </div>
-</article><article class="post" itemscope itemtype="http://schema.org/Article">
-    
-    
-    
-
-    
-    
-    
-    <h1 class="post-title post-list-title" itemprop="name headline">
-        <a href="https://wanzi.im/posts/2018/02/devops-saltstack-saltapi/">saltstack之saltapi</a>
-    </h1>
-
-    <div class="post-meta">
-        <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
-        发布于&nbsp;<time datetime=2018-02-15>2018-02-15</time>&nbsp;
-        <span class="post-category">
-                收录于
-                <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/devops/">devops</a>
-                    
-            </span>
-    </div>
-    <div class="post-content">
-        
-            
-            
-            
-            
-            
-            
-            
-            安装 yum -y install salt-api
-配置： cat /etc/salt/master.d/api.conf #配置证书和端口
-1 2 3 4 5  rest_cherrypy: port: 8888 debug: True ssl_crt: /etc/pki/tls/certs/localhost.crt ssl_key: /etc/pki/tls/private/localhost_nopass.key   cat /etc/salt/master.d/eauth.conf #设置权限
-1 2 3 4 5 6  external_auth: pam: saltapi: - .* - &#39;@wheel&#39; - &#39;@runner&#39;   添加账号 1 2  useradd -M -s /sbin/nologin saltapi echo &#34;saltapi_xxxxxx&#34; | passwd saltapi --stdin   启动服务： 1 2  systemctl enable salt-api systemctl start salt-api   测试： curl测试并获取token信息：
-        
-    </div>
-    <div class="post-footer">
-        <a href="https://wanzi.im/posts/2018/02/devops-saltstack-saltapi/">阅读全文</a>
-        
-            <div class="post-tags">
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/saltstack/"><i class="fas fa-tag fa-fw"></i>saltstack</a></span>
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/saltapi/"><i class="fas fa-tag fa-fw"></i>saltapi</a></span>
                 
             </div>
         

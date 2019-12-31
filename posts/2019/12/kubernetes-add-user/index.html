@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>kubernetes集群添加用户 | 奔跑的丸子</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noodp" />
+<meta name="Description" content="kubernetes集群部署traefik2.1">
+<link rel="prev" href="https://wanzi.im/posts/2019/12/kubernetes-traefik-v2.1-deploy/" />
+<link rel="canonical" href="https://wanzi.im/posts/2019/12/kubernetes-add-user/" />
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="kubernetes集群添加用户"/>
+<meta name="twitter:description" content="kubernetes集群部署traefik2.1"/>
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "kubernetes集群添加用户",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https:\/\/wanzi.im\/posts\/2019\/12\/kubernetes-add-user\/"
+    },
+    
+        "image": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/cover.png",
+            "width":  800 ,
+            "height":  600 
+        },
+    
+    "genre": "posts",
+    
+        "keywords": "kubernetes, k8s, cfssl",
+    
+    "wordcount":  197 ,
+    "url": "https:\/\/wanzi.im\/posts\/2019\/12\/kubernetes-add-user\/",
+    
+        "datePublished": "2019-12-31T10:22:42\x2b08:00",
+    
+    
+        "dateModified": "2019-12-31T17:22:42\x2b08:00",
+    
+    
+        "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
+    
+    
+        "publisher": {
+            "@type": "Organization",
+            "name": "XXXX",
+            "logo": {
+            "@type": "ImageObject",
+            "url": "https:\/\/wanzi.im\/logo.png",
+            "width":  127 ,
+            "height":  40 
+            }
+        },
+    
+    
+    "description": "kubernetes集群部署traefik2.1"
+    }
+    </script>
+<link rel="stylesheet" href="/css/style.min.css">
+<link rel="stylesheet" href="/css/lib/fontawesome-free/all.min.min.css">
+
+<link rel="stylesheet" href="/css/lib/animate/animate.min.min.css">
+
+    </head>
+    <body>
+        <script>
+            window.isDark = (window.localStorage && window.localStorage.getItem('theme')) === 'dark';
+            window.isDark && document.body.classList.add('dark-theme');
+        </script>
+        <div class="wrapper">
+            <nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-header animated bounceIn">
+            <a href="https://wanzi.im/">奔跑的丸子</a>
+        </div>
+        <div class="navbar-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile">
+     <div class="navbar-container">
+        <div class="navbar-header">
+            <div class="navbar-header-title animated bounceIn">
+                <a href="https://wanzi.im/">奔跑的丸子</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="navbar-menu" id="mobile-menu">
+            
+            
+                <a class="menu-item" href="https://wanzi.im/posts" title="">文章</a>
+            
+                <a class="menu-item" href="https://wanzi.im/tags" title="">标签</a>
+            
+                <a class="menu-item" href="https://wanzi.im/categories" title="">分类</a>
+            
+                <a class="menu-item" href="https://wanzi.im/about" title="">关于</a>
+            
+            <a href="javascript:void(0);" class="theme-switch"><i class="fas fa-adjust fa-rotate-180 fa-fw"></i></a>
+        </div>
+    </div>
+</nav><main class="main">
+                <div class="container">
+                    
+    
+    
+    
+
+    <article class="post-warp">
+        <h1 class="post-title animated flipInX">kubernetes集群添加用户</h1>
+
+        <div class="post-meta">
+            <div class="post-meta-main">
+                <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+                <span class="post-category">
+                        收录于
+                        <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/kubernetes/">Kubernetes</a>
+                            
+                    </span>
+            </div>
+            <div class="post-meta-other">
+                <i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-12-31>2019-12-31</time>&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 197 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>预计阅读 1 分钟&nbsp;</div>
+        </div>
+
+        
+
+        <div class="post-toc" id="post-toc">
+                <h2 class="post-toc-title">目录</h2>
+                <div class="post-toc-content">
+                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#生成证书">生成证书</a></li>
+<li><a href="#设置集群参数">设置集群参数</a></li>
+<li><a href="#设置客户端认证参数">设置客户端认证参数</a></li>
+<li><a href="#设置上下文参数">设置上下文参数</a></li>
+<li><a href="#设置默认上下文">设置默认上下文</a></li>
+<li><a href="#客户端使用">客户端使用</a></li>
+<li><a href="#绑定用户到指定namespace">绑定用户到指定namespace</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                </div>
+            </div>
+            <div class="post-toc-mobile" id="post-toc-mobile">
+                <details>
+                    <summary><div class="post-toc-title"><span>目录</span><span><i class="details icon fas fa-angle-down"></i></span></div></summary>
+                    <div class="post-toc-content">
+                        
+                        
+                        <nav id="TableOfContentsMobile">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#生成证书">生成证书</a></li>
+<li><a href="#设置集群参数">设置集群参数</a></li>
+<li><a href="#设置客户端认证参数">设置客户端认证参数</a></li>
+<li><a href="#设置上下文参数">设置上下文参数</a></li>
+<li><a href="#设置默认上下文">设置默认上下文</a></li>
+<li><a href="#客户端使用">客户端使用</a></li>
+<li><a href="#绑定用户到指定namespace">绑定用户到指定namespace</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                </details>
+            </div>
+
+        <div class="post-content">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+<p>之前通过ansible搭建了kubernetes集群环境,这里需求主要是添加一个用户进行日常管理，并限制到指定的namespace，接下来进行操作：</p>
+
+<a class="post-dummy-target" id="生成证书"></a><h4>生成证书</h4>
+
+<p>准备证书生成文件csr,并通过kubernetes的ca签发证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma"># vim cicd-admin-csr.json
+{
+  &#34;CN&#34;: &#34;cicd-admin&#34;,
+  &#34;hosts&#34;: [],
+  &#34;key&#34;: {
+    &#34;algo&#34;: &#34;rsa&#34;,
+    &#34;size&#34;: 2048
+  },
+  &#34;names&#34;: [
+    {
+      &#34;C&#34;: &#34;CN&#34;,
+      &#34;ST&#34;: &#34;BeiJing&#34;,
+      &#34;L&#34;: &#34;BeiJing&#34;,
+      &#34;O&#34;: &#34;k8s&#34;,
+      &#34;OU&#34;: &#34;System&#34;
+    }
+  ]
+}
+# cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes  cicd-admin-csr.json | cfssljson -bare cicd-admin
+# ls -l cicd-admin*
+-rw-r--r-- 1 root root 1001 Dec 19 16:51 cicd-admin.csr
+-rw-r--r-- 1 root root  224 Dec 19 16:50 cicd-admin-csr.json
+-rw------- 1 root root 1675 Dec 19 16:51 cicd-admin-key.pem
+-rw-r--r-- 1 root root 1387 Dec 19 16:51 cicd-admin.pem</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="设置集群参数"></a><h4>设置集群参数</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">export KUBE_APISERVER=&#34;https://cicd-k8s.test.cn:8443&#34;
+kubectl config set-cluster kubernetes \
+--certificate-authority=/etc/kubernetes/ssl/ca.pem \
+--embed-certs=true \
+--server=${KUBE_APISERVER} \
+--kubeconfig=cicd-admin.kubeconfig</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="设置客户端认证参数"></a><h4>设置客户端认证参数</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl config set-credentials cicd-admin \
+--client-certificate=/etc/kubernetes/ssl/cicd-admin.pem \
+--client-key=/etc/kubernetes/ssl/cicd-admin-key.pem \
+--embed-certs=true \
+--kubeconfig=cicd-admin.kubeconfig</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="设置上下文参数"></a><h4>设置上下文参数</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl config set-context kubernetes \
+--cluster=kubernetes \
+--user=cicd-admin \
+--namespace=cicd \
+--kubeconfig=cicd-admin.kubeconfig</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="设置默认上下文"></a><h4>设置默认上下文</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl config use-context kubernetes --kubeconfig=cicd-admin.kubeconfig</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="客户端使用"></a><h4>客户端使用</h4>
+
+<p>将kubeconfig文件覆盖~/.kube/config</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">cp cicd-admin.kubeconfig ~/.kube/config</pre></td></tr></table>
+</div>
+</div>
+<a class="post-dummy-target" id="绑定用户到指定namespace"></a><h4>绑定用户到指定namespace</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">kubectl create rolebinding cicd-admin-binding --clusterrole=admin --user=cicd-admin --namespace=cicd
+kubectl create rolebinding cicd-admin-binding --clusterrole=admin --user=cicd-admin --namespace=chaos</pre></td></tr></table>
+</div>
+</div>
+        </div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>本文于 2019-12-31 更新</span>
+            </div>
+            <div class="post-info-license">
+                
+            </div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md">
+                
+                    
+                        <span><a class="link-to-markdown" href="https://wanzi.im/posts/2019/12/kubernetes-add-user/index.md" target="_blank">阅读原始文档</a></span>
+                    
+                
+            </div>
+            <div class="post-info-share">
+                
+                    <span>
+    
+        <a href="//twitter.com/share?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-add-user%2f&amp;text=kubernetes%e9%9b%86%e7%be%a4%e6%b7%bb%e5%8a%a0%e7%94%a8%e6%88%b7&amp;via=" target="_blank" title="Share on Twitter">
+            <i class="fab fa-twitter fa-fw"></i>
+        </a>
+    
+    
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-add-user%2f" target="_blank" title="Share on Facebook">
+            <i class="fab fa-facebook-square fa-fw"></i>
+        </a>
+    
+    
+        <a href="//reddit.com/submit?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-add-user%2f&amp;title=kubernetes%e9%9b%86%e7%be%a4%e6%b7%bb%e5%8a%a0%e7%94%a8%e6%88%b7" target="_blank" title="Share on Reddit">
+            <i class="fab fa-reddit fa-fw"></i>
+        </a>
+    
+    
+    
+    
+    
+    
+        <a href="//www.tumblr.com/widgets/share/tool?canonicalUrl=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-add-user%2f&amp;title=kubernetes%e9%9b%86%e7%be%a4%e6%b7%bb%e5%8a%a0%e7%94%a8%e6%88%b7" target="_blank" title="Share on Tumblr">
+            <i class="fab fa-tumblr fa-fw"></i>
+        </a>
+    
+    
+    
+        <a href="//service.weibo.com/share/share.php?url=https%3a%2f%2fwanzi.im%2fposts%2f2019%2f12%2fkubernetes-add-user%2f&amp;appkey=&amp;title=kubernetes%e9%9b%86%e7%be%a4%e6%b7%bb%e5%8a%a0%e7%94%a8%e6%88%b7" target="_blank" title="Share on Weibo">
+            <i class="fab fa-weibo fa-fw"></i>
+        </a>
+    
+</span>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section>
+            
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/kubernetes/"><i class="fas fa-tag fa-fw"></i>kubernetes</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/k8s/"><i class="fas fa-tag fa-fw"></i>k8s</a>
+                    </span>
+                
+                    <span class="tag">
+                        <a href="https://wanzi.im/tags/cfssl/"><i class="fas fa-tag fa-fw"></i>cfssl</a>
+                    </span>
+                
+            
+        </section>
+        <section>
+            <span><a href="javascript:window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="https://wanzi.im/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+            <a href="https://wanzi.im/posts/2019/12/kubernetes-traefik-v2.1-deploy/" class="prev" rel="prev" title="kubernetes集群部署traefik2.1"><i class="fas fa-angle-left fa-fw"></i>kubernetes集群部署traefik2.1</a>
+        
+        
+    </div>
+</div>
+
+        <div class="post-comment">
+            
+            
+
+            
+        </div>
+    </article></div>
+            </main>
+            <footer class="footer">
+    <div class="copyright">
+        <div class="copyright-line">
+            由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreffer">Hugo</a> 强力驱动&nbsp;|&nbsp;主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="external nofollow noopener noreffer">LoveIt<i class="far fa-heart fa-fw"></i></a>
+        </div>
+        <div class="copyright-line">
+            <i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://wanzi.im/">丸子</a></span><span class="icp">&nbsp;|&nbsp;京A666666</span></div>
+    </div>
+</footer>
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+
+    
+    
+
+
+
+    
+    
+
+
+
+
+
+    
+    
+
+
+<script src="/js/lib/jquery/jquery.slim.min.min.js"></script>
+<script src="/js/lib/lazysizes/lazysizes.min.min.js"></script>
+<script src="/js/lib/smooth-scroll/smooth-scroll.polyfills.min.min.js"></script><script>window.scroll = new SmoothScroll('[data-scroll]', {speed: 300, speedAsDuration: true});</script>
+
+
+    
+    
+
+    
+
+    
+        <link rel="stylesheet" href="/css/lib/katex/katex.min.min.css"><script src="/js/lib/katex/katex.min.min.js"></script><script defer src="/js/lib/katex/auto-render.min.min.js" onload="renderMathInElement(document.body);"></script>
+    
+
+    
+
+    
+
+
+
+
+
+
+<script src="/js/blog.min.js"></script>
+
+
+    
+</div>
+        <a href="#" class="dynamic-to-top" id="dynamic-to-top" data-scroll><span>&nbsp;</span></a>
+    </body>
+</html>

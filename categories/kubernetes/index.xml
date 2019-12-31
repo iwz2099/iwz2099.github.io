@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 17 Dec 2019 10:22:42 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 31 Dec 2019 10:22:42 +0800</lastBuildDate>
     
 	<atom:link href="https://wanzi.im/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>kubernetes集群添加用户</title>
+      <link>https://wanzi.im/posts/2019/12/kubernetes-add-user/</link>
+      <pubDate>Tue, 31 Dec 2019 10:22:42 +0800</pubDate>
+      
+      <guid>https://wanzi.im/posts/2019/12/kubernetes-add-user/</guid>
+      <description>之前通过ansible搭建了kubernetes集群环境,这里需求主要是添加一个用户进行日常管理，并限制到指定的namespace，接下来进行操作：
+生成证书 准备证书生成文件csr,并通过kubernetes的ca签发证书
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24  # vim cicd-admin-csr.json { &amp;#34;CN&amp;#34;: &amp;#34;cicd-admin&amp;#34;, &amp;#34;hosts&amp;#34;: [], &amp;#34;key&amp;#34;: { &amp;#34;algo&amp;#34;: &amp;#34;rsa&amp;#34;, &amp;#34;size&amp;#34;: 2048 }, &amp;#34;names&amp;#34;: [ { &amp;#34;C&amp;#34;: &amp;#34;CN&amp;#34;, &amp;#34;ST&amp;#34;: &amp;#34;BeiJing&amp;#34;, &amp;#34;L&amp;#34;: &amp;#34;BeiJing&amp;#34;, &amp;#34;O&amp;#34;: &amp;#34;k8s&amp;#34;, &amp;#34;OU&amp;#34;: &amp;#34;System&amp;#34; } ] } # cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes cicd-admin-csr.json | cfssljson -bare cicd-admin # ls -l cicd-admin* -rw-r--r-- 1 root root 1001 Dec 19 16:51 cicd-admin.</description>
+    </item>
     
     <item>
       <title>kubernetes集群部署traefik2.1</title>
@@ -20,7 +31,7 @@
       <guid>https://wanzi.im/posts/2019/12/kubernetes-traefik-v2.1-deploy/</guid>
       <description>架构&amp;amp;概念 Traefik2.x版本相比1.7.x架构有很大变化，正如上边这张架构图，最主要的功能是支持了TCP协议、增加了Router概念。
 这里我们采用在kubernetes集群部署Traefik2.1，业务访问通过haproxy请求到traefik Ingress，下边是搭建过程涉及到一些概念：
- EntryPoints：Traefik的网络入口，定义请求接受的端口(不分http或tcp) CRD：Kubernetes API的扩展 IngressRouter：将传入请求转发到可以处理请求的服务，另外转发请求之前可以通过Middlewares动态更新请求 Middlewares：请求到达服务之前进行动态处理请求参数，比如header或转发规则等等。 TraefikService：如果果CRD定义了了这种类型，IngressRouter可以直接引用，处在IngressRouter和服务之间,类似于Maesh架构，更适合较为复杂场景  kubernetes配置SSL证书 因为业务服务使用https,这里先配置下SSL证书:
+ EntryPoints：Traefik的网络入口，定义请求接受的端口(不分http或tcp) CRD：Kubernetes API的扩展 IngressRouter：将传入请求转发到可以处理请求的服务，另外转发请求之前可以通过Middlewares动态更新请求 Middlewares：请求到达服务之前进行动态处理请求参数，比如header或转发规则等等。 TraefikService：如果果CRD定义了了这种类型，IngressRouter可以直接引用，处在IngressRouter和服务之间,类似于Maesh架构，更适合较为复杂场景,一般情况可以不使用。  kubernetes配置SSL证书 因为业务服务使用https,这里先配置下SSL证书:
 1  kubectl -n cattle-system create secret tls tls-rancher-ingress --cert=test.cn.pem --key=test.cn.key   CRD配置 这里定义了IngressRoute、Middleware、TLSOption、IngressRouteTCP、TraefikService,其中TraefikService是在2.1版本新增加的CRD
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72  apiVersion: apiextensions.</description>
     </item>

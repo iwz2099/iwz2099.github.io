@@ -191,6 +191,55 @@
     
     
     <h1 class="post-title post-list-title" itemprop="name headline">
+        <a href="https://wanzi.im/posts/2019/12/kubernetes-add-user/">kubernetes集群添加用户</a>
+    </h1>
+
+    <div class="post-meta">
+        <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
+        发布于&nbsp;<time datetime=2019-12-31>2019-12-31</time>&nbsp;
+        <span class="post-category">
+                收录于
+                <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/kubernetes/">Kubernetes</a>
+                    
+            </span>
+    </div>
+    <div class="post-content">
+        
+            
+            
+            
+            
+            
+            
+            
+            之前通过ansible搭建了kubernetes集群环境,这里需求主要是添加一个用户进行日常管理，并限制到指定的namespace，接下来进行操作：
+生成证书 准备证书生成文件csr,并通过kubernetes的ca签发证书
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24  # vim cicd-admin-csr.json { &#34;CN&#34;: &#34;cicd-admin&#34;, &#34;hosts&#34;: [], &#34;key&#34;: { &#34;algo&#34;: &#34;rsa&#34;, &#34;size&#34;: 2048 }, &#34;names&#34;: [ { &#34;C&#34;: &#34;CN&#34;, &#34;ST&#34;: &#34;BeiJing&#34;, &#34;L&#34;: &#34;BeiJing&#34;, &#34;O&#34;: &#34;k8s&#34;, &#34;OU&#34;: &#34;System&#34; } ] } # cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json -profile=kubernetes cicd-admin-csr.json | cfssljson -bare cicd-admin # ls -l cicd-admin* -rw-r--r-- 1 root root 1001 Dec 19 16:51 cicd-admin.
+        
+    </div>
+    <div class="post-footer">
+        <a href="https://wanzi.im/posts/2019/12/kubernetes-add-user/">阅读全文</a>
+        
+            <div class="post-tags">
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/kubernetes/"><i class="fas fa-tag fa-fw"></i>kubernetes</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/k8s/"><i class="fas fa-tag fa-fw"></i>k8s</a></span>
+                
+                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/cfssl/"><i class="fas fa-tag fa-fw"></i>cfssl</a></span>
+                
+            </div>
+        
+    </div>
+</article><article class="post" itemscope itemtype="http://schema.org/Article">
+    
+    
+    
+
+    
+    
+    
+    <h1 class="post-title post-list-title" itemprop="name headline">
         <a href="https://wanzi.im/posts/2019/12/kubernetes-traefik-v2.1-deploy/">kubernetes集群部署traefik2.1</a>
     </h1>
 
@@ -214,7 +263,7 @@
             
             架构&amp;概念 Traefik2.x版本相比1.7.x架构有很大变化，正如上边这张架构图，最主要的功能是支持了TCP协议、增加了Router概念。
 这里我们采用在kubernetes集群部署Traefik2.1，业务访问通过haproxy请求到traefik Ingress，下边是搭建过程涉及到一些概念：
- EntryPoints：Traefik的网络入口，定义请求接受的端口(不分http或tcp) CRD：Kubernetes API的扩展 IngressRouter：将传入请求转发到可以处理请求的服务，另外转发请求之前可以通过Middlewares动态更新请求 Middlewares：请求到达服务之前进行动态处理请求参数，比如header或转发规则等等。 TraefikService：如果果CRD定义了了这种类型，IngressRouter可以直接引用，处在IngressRouter和服务之间,类似于Maesh架构，更适合较为复杂场景  kubernetes配置SSL证书 因为业务服务使用https,这里先配置下SSL证书:
+ EntryPoints：Traefik的网络入口，定义请求接受的端口(不分http或tcp) CRD：Kubernetes API的扩展 IngressRouter：将传入请求转发到可以处理请求的服务，另外转发请求之前可以通过Middlewares动态更新请求 Middlewares：请求到达服务之前进行动态处理请求参数，比如header或转发规则等等。 TraefikService：如果果CRD定义了了这种类型，IngressRouter可以直接引用，处在IngressRouter和服务之间,类似于Maesh架构，更适合较为复杂场景,一般情况可以不使用。  kubernetes配置SSL证书 因为业务服务使用https,这里先配置下SSL证书:
 1  kubectl -n cattle-system create secret tls tls-rancher-ingress --cert=test.cn.pem --key=test.cn.key   CRD配置 这里定义了IngressRoute、Middleware、TLSOption、IngressRouteTCP、TraefikService,其中TraefikService是在2.1版本新增加的CRD
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72  apiVersion: apiextensions.
         
@@ -440,61 +489,6 @@
                     &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/github/"><i class="fas fa-tag fa-fw"></i>github</a></span>
                 
                     &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/%E5%8D%9A%E5%AE%A2/"><i class="fas fa-tag fa-fw"></i>博客</a></span>
-                
-            </div>
-        
-    </div>
-</article><article class="post" itemscope itemtype="http://schema.org/Article">
-    
-    
-    
-
-    
-    
-    
-    <h1 class="post-title post-list-title" itemprop="name headline">
-        <a href="https://wanzi.im/posts/2018/11/other-zsh-cool-install/">Mac系统配置炫酷终端(oh my zsh)</a>
-    </h1>
-
-    <div class="post-meta">
-        <a class="author" href="https://wanzi.im/" rel="author"><i class="fas fa-user-circle fa-fw"></i>丸子&nbsp;</a>
-        发布于&nbsp;<time datetime=2018-11-10>2018-11-10</time>&nbsp;
-        <span class="post-category">
-                收录于
-                <i class="far fa-folder fa-fw"></i><a href="https://wanzi.im/categories/other/">other</a>
-                    
-            </span>
-    </div>
-    <div class="post-content">
-        
-            
-            
-            
-            
-            
-            
-            
-            brew工具 官网:https://brew.sh
-安装brew
-1  /usr/bin/ruby -e &#34;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&#34;   修改brew源为国内源
-1 2 3 4 5 6 7  git -C &#34;$(brew --repo)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git git -C &#34;$(brew --repo homebrew/core)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git git -C &#34;$(brew --repo homebrew/cask)&#34; remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles #追加到~/.zshrc brew update #更新homebrew brew upgrade #升级所有已经安装包 brew cleanup #升级完成后清理旧版本包   iterm2 安装iterm2
-1  brew cask install iterm2   配置:
-        
-    </div>
-    <div class="post-footer">
-        <a href="https://wanzi.im/posts/2018/11/other-zsh-cool-install/">阅读全文</a>
-        
-            <div class="post-tags">
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/zsh/"><i class="fas fa-tag fa-fw"></i>zsh</a></span>
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/mac/"><i class="fas fa-tag fa-fw"></i>MAC</a></span>
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/ohmyzsh/"><i class="fas fa-tag fa-fw"></i>ohmyzsh</a></span>
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/brew/"><i class="fas fa-tag fa-fw"></i>brew</a></span>
-                
-                    &nbsp;&nbsp;<span class="tag"><a href="https://wanzi.im/tags/iterm2/"><i class="fas fa-tag fa-fw"></i>iterm2</a></span>
                 
             </div>
         

@@ -7,6 +7,7 @@
 <meta name="robots" content="noodp" />
 <meta name="Description" content="ubernetes集群部署traefik2.1">
 <link rel="prev" href="https://wanzi.im/posts/2019/12/kubernetes-deploy-automation/" />
+<link rel="next" href="https://wanzi.im/posts/2019/12/kubernetes-add-user/" />
 <link rel="canonical" href="https://wanzi.im/posts/2019/12/kubernetes-traefik-v2.1-deploy/" />
 <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -40,13 +41,13 @@
     
         "keywords": "kubernetes, k8s, traefik2, traefik, rancher",
     
-    "wordcount":  1165 ,
+    "wordcount":  1143 ,
     "url": "https:\/\/wanzi.im\/posts\/2019\/12\/kubernetes-traefik-v2.1-deploy\/",
     
         "datePublished": "2019-12-17T10:22:42\x2b08:00",
     
     
-        "dateModified": "2019-12-17T17:22:42\x2b08:00",
+        "dateModified": "2019-12-31T17:22:42\x2b08:00",
     
     
         "license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.",
@@ -144,7 +145,7 @@
             </div>
             <div class="post-meta-other">
                 <i class="far fa-calendar-alt fa-fw"></i><time datetime=2019-12-17>2019-12-17</time>&nbsp;
-                <i class="fas fa-pencil-alt fa-fw"></i>约 1165 字&nbsp;
+                <i class="fas fa-pencil-alt fa-fw"></i>约 1143 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>预计阅读 6 分钟&nbsp;</div>
         </div>
 
@@ -167,8 +168,9 @@
 <li><a href="#kubernetes配置rbac">kubernetes配置RBAC</a></li>
 <li><a href="#tls参数配置">TLS参数配置</a></li>
 <li><a href="#traefikservice配置">TraefikService配置</a></li>
-<li><a href="#ingressrouter配置">IngressRouter配置</a></li>
 <li><a href="#traefik2-1部署-deployment">Traefik2.1部署(DeployMent)</a></li>
+<li><a href="#ingressrouter配置">IngressRouter配置</a></li>
+<li><a href="#配置rancher的ingressroute">配置Rancher的IngressRoute</a></li>
 <li><a href="#部署traefik2-1到kubernetes集群">部署traefik2.1到Kubernetes集群</a></li>
 </ul></li>
 </ul></li>
@@ -197,8 +199,9 @@
 <li><a href="#kubernetes配置rbac">kubernetes配置RBAC</a></li>
 <li><a href="#tls参数配置">TLS参数配置</a></li>
 <li><a href="#traefikservice配置">TraefikService配置</a></li>
-<li><a href="#ingressrouter配置">IngressRouter配置</a></li>
 <li><a href="#traefik2-1部署-deployment">Traefik2.1部署(DeployMent)</a></li>
+<li><a href="#ingressrouter配置">IngressRouter配置</a></li>
+<li><a href="#配置rancher的ingressroute">配置Rancher的IngressRoute</a></li>
 <li><a href="#部署traefik2-1到kubernetes集群">部署traefik2.1到Kubernetes集群</a></li>
 </ul></li>
 </ul></li>
@@ -250,7 +253,7 @@
 <li>CRD：Kubernetes API的扩展</li>
 <li>IngressRouter：将传入请求转发到可以处理请求的服务，另外转发请求之前可以通过Middlewares动态更新请求</li>
 <li>Middlewares：请求到达服务之前进行动态处理请求参数，比如header或转发规则等等。</li>
-<li>TraefikService：如果果CRD定义了了这种类型，IngressRouter可以直接引用，处在IngressRouter和服务之间,类似于Maesh架构，更适合较为复杂场景</li>
+<li>TraefikService：如果果CRD定义了了这种类型，IngressRouter可以直接引用，处在IngressRouter和服务之间,类似于Maesh架构，更适合较为复杂场景,一般情况可以不使用。</li>
 </ul>
 
 <a class="post-dummy-target" id="kubernetes配置ssl证书"></a><h4>kubernetes配置SSL证书</h4>
@@ -653,7 +656,7 @@ spec:
 
 <p>TraefikService有点类似Maesh解决服务之间的调用逻辑，只是Maesh依赖coredns；另外traefik service还可以设置后端服务权重，配置服务的流量镜像。</p>
 
-<p>这里我们配置traefik dashboard和rancher的traefikservice类型服务，其他服务配置可以参考这里rancher的traefik service, traefik service会转发请求到kubernetes 的服务类型(上一章节我们已经通过helm3创建了rancher服务)：</p>
+<p>这里我们配置traefik dashboard和rancher的traefikservice类型服务，其他服务配置可以参考这里rancher的traefik service, traefik service会转发请求到kubernetes 的服务类型(上一章节我们已经通过helm3创建了rancher服务)，这里只是举例说明：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
@@ -712,198 +715,11 @@ spec:
         port: 80</pre></td></tr></table>
 </div>
 </div>
-<a class="post-dummy-target" id="ingressrouter配置"></a><h4>IngressRouter配置</h4>
-
-<ul>
-<li>定义强制https的redirect-https,rancher的ingressrouter可以直接引用</li>
-<li>配置X-Forwarded-Proto的头信息</li>
-
-<li><p>配置IngressRouter,并设置TLS证书通过secretName引入, 需要提前在kubernetes配置secret，上一章已经记录这里先忽略了</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span><span class="lnt">86
-</span></pre></td>
-<td class="lntd">
-<pre class="chroma">apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-name: redirect-https
-namespace: kube-system
-spec:
-redirectScheme:
-scheme: https
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-name: svc-rancher-headers
-namespace: cattle-system
-spec:
-headers:
-customRequestHeaders:
-  X-Forwarded-Proto: &#34;https&#34;
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-name: traefik-webui
-namespace: kube-system
-spec:
-entryPoints:
-- admin
-routes:
-- match: Host(`traefik-cicd.test.cn`)
-kind: Rule
-services:
-- name: api@internal
-  kind: TraefikService
-  namespaces: kube-system
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-name: rancher
-namespace: cattle-system
-spec:
-entryPoints:
-- http
-routes:
-- match: Host(`rancher-cicd.test.cn`)
-kind: Rule
-services:
-- name: rancher-traefikservice
-  kind: TraefikService
-  namespaces: cattle-system
-  port: 80
-middlewares:
-- name: redirect-https
-
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-name: rancher-tls
-namespace: cattle-system
-spec:
-entryPoints:
-- https
-routes:
-- match: Host(`rancher-cicd.test.cn`)
-kind: Rule
-services:
-- name: rancher-traefikservice
-  kind: TraefikService
-  namespaces: cattle-system
-  port: 443
-middlewares:
-- name: svc-rancher-headers
-tls:
-secretName: tls-rancher-ingress
-options:
-  name: mytlsoption
-  namespaces: cattle-system
-stores:
-  default:
-    defaultCertificate:
-      certFile: &#34;/ssl/tls.crt&#34;
-      keyFile: &#34;/ssl/tls.key&#34;</pre></td></tr></table>
-</div>
-</div></li>
-</ul>
-
 <a class="post-dummy-target" id="traefik2-1部署-deployment"></a><h4>Traefik2.1部署(DeployMent)</h4>
 
 <ul>
-<li>配置traefik service服务</li>
-<li>创建traefik configmap,并配置entrypoints、provider</li>
+<li>配置k8s标准service服务</li>
+<li>创建traefik configmap,并配置entrypoints和默认SSL证书</li>
 
 <li><p>Deployment方式部署traefik ingress controller</p>
 <div class="highlight"><div class="chroma">
@@ -1016,18 +832,6 @@ stores:
 </span><span class="lnt">106
 </span><span class="lnt">107
 </span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
 </span></pre></td>
 <td class="lntd">
 <pre class="chroma">kind: Service
@@ -1047,10 +851,6 @@ ports:
   port: 443
   nodePort: 23457
   name: https
-- protocol: TCP
-  port: 8080
-  nodePort: 22180
-  name: admin
 type: NodePort
 
 ---
@@ -1064,31 +864,23 @@ traefik.toml: |
 [global]
   checkNewVersion = false
   sendAnonymousUsage = false
-
 [log]
   level = &#34;DEBUG&#34;
-
 [api]
   dashboard = true
-
 [metrics.prometheus]
   buckets = [0.1,0.3,1.2,5.0]
   entryPoint = &#34;metrics&#34;
-
 [entryPoints]
   [entryPoints.http]
     address = &#34;:80&#34;
   [entryPoints.https]
     address = &#34;:443&#34;
-  [entryPoints.admin]
-    address = &#34;:8080&#34;
-
-[providers]
-  [providers.kubernetesCRD]
-  #[providers.kubernetesIngress]
-  #[providers.rancher]
-  #[providers.docker]
-
+[tls.stores]
+  [tls.stores.default]
+    [tls.stores.default.defaultCertificate]
+      certFile = &#34;/config/tls/test.cn.crt&#34;
+      keyFile  = &#34;/config/tls/test.cn.key&#34;
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -1120,13 +912,13 @@ spec:
     configMap:
       name: traefik-conf
   containers:
-  - image: traefik:v2.1
+  - image: traefik:v2.1.1
     name: traefik-ingress-lb
     volumeMounts:
-    - mountPath: &#34;/ssl&#34;
-      name: &#34;ssl&#34;
     - mountPath: &#34;/config&#34;
       name: &#34;config&#34;
+    - mountPath: &#34;/config/tls&#34;
+      name: &#34;ssl&#34;
     resources:
       limits:
         cpu: 1000m
@@ -1141,15 +933,209 @@ spec:
     - name: https
       containerPort: 443
       hostPort: 443
-    - name: admin
-      containerPort: 8080
     args:
-    - --configfile=/config/traefik.toml
     - --entrypoints.http.Address=:80
     - --entrypoints.https.Address=:443
-    - --entrypoints.https.Address=:8080
     - --api
-    - --accesslog</pre></td></tr></table>
+    - --accesslog
+    - --providers.file.directory=/config/
+    - --providers.file.watch=true
+    - --ping=true
+    - --providers.kubernetescrd</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<a class="post-dummy-target" id="ingressrouter配置"></a><h4>IngressRouter配置</h4>
+
+<ul>
+<li>定义middleware给rancher服务配置X-Forwarded-Proto的头信息</li>
+
+<li><p>配置rancher的ingressroute，并使用默认证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+name: redirect-https
+namespace: kube-system
+spec:
+redirectScheme:
+scheme: https
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+name: http-default-router
+namespace: kube-system
+spec:
+entryPoints:
+- http
+routes:
+- match: HostRegexp(`{host:.+}`)
+kind: Rule
+services:
+- name: traefik-ingress-service
+  kind: Service
+  namespaces: kube-system
+  port: 80
+middlewares:
+- name: redirect-https
+tls:
+options:
+  name: mytlsoption
+  namespaces: kube-system
+certResolver: default
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+name: traefik-webui
+namespace: kube-system
+spec:
+entryPoints:
+- https
+routes:
+- match: Host(`traefik.test.cn`)
+kind: Rule
+services:
+- name: api@internal
+  kind: TraefikService
+  namespaces: kube-system</pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+
+<a class="post-dummy-target" id="配置rancher的ingressroute"></a><h4>配置Rancher的IngressRoute</h4>
+
+<ul>
+<li>定义middleware给rancher服务配置X-Forwarded-Proto的头信息</li>
+
+<li><p>配置rancher的ingressroute，并使用默认证书</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+name: rancher-https-headers
+namespace: cattle-system
+spec:
+headers:
+customRequestHeaders:
+  X-Forwarded-Proto: &#34;https&#34;
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+name: rancher-tls
+namespace: cattle-system
+spec:
+entryPoints:
+- https
+routes:
+- match: Host(`rancher.test.cn`)
+kind: Rule
+services:
+- name: rancher
+  kind: Service
+  namespaces: cattle-system
+  port: 80
+middlewares:
+- name: rancher-https-headers
+  namespaces: cattle-system
+
+tls:
+certResolver: default</pre></td></tr></table>
 </div>
 </div></li>
 </ul>
@@ -1163,14 +1149,16 @@ spec:
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></pre></td>
 <td class="lntd">
 <pre class="chroma">kubectl apply -f 01-crd.yaml
 kubectl apply -f 02-rbac.yaml
 kubectl apply -f 03-tlsoption.yaml
-kubectl apply -f 04-traefikservices.yaml
-kubectl apply -f 05-ingressrouter.yaml
-kubectl apply -f 06-traefik.yaml</pre></td></tr></table>
+kubectl apply -f 04-traefikservices.yaml #非必须
+kubectl apply -f 05-traefik.yaml
+kubectl apply -f 06-ingressrouter.yaml
+kubectl apply -f 06-ingressrouter-rancher.yaml</pre></td></tr></table>
 </div>
 </div>
 <p>更多配置信息，请移步我的github仓库：<a href="https://github.com/iwz2099/kubecase">https://github.com/iwz2099/kubecase</a></p>
@@ -1181,7 +1169,7 @@ kubectl apply -f 06-traefik.yaml</pre></td></tr></table>
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>本文于 2019-12-17 更新</span>
+                <span>本文于 2019-12-31 更新</span>
             </div>
             <div class="post-info-license">
                 
@@ -1269,6 +1257,8 @@ kubectl apply -f 06-traefik.yaml</pre></td></tr></table>
         
             <a href="https://wanzi.im/posts/2019/12/kubernetes-deploy-automation/" class="prev" rel="prev" title="自动化部署k8s集群"><i class="fas fa-angle-left fa-fw"></i>自动化部署k8s集群</a>
         
+        
+            <a href="https://wanzi.im/posts/2019/12/kubernetes-add-user/" class="next" rel="next" title="kubernetes集群添加用户">kubernetes集群添加用户<i class="fas fa-angle-right fa-fw"></i></a>
         
     </div>
 </div>
